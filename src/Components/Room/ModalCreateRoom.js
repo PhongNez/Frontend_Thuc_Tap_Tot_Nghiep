@@ -39,8 +39,11 @@ const ModalCreateRoom = (props) => {
             setTrangThai('')
             setSelectedImage(null)
             handleClose()
+            toast.error(res.message)
         }
-
+        else if (res && res.errCode === 1) {
+            toast.error(res.message)
+        }
     }
     const handleOnChangeImage = (e) => {
         const file = e.target.files[0];
@@ -94,7 +97,7 @@ const ModalCreateRoom = (props) => {
                                 value={id_day}
                                 onChange={(event) => setIdDay(event.target.value)}
                             >
-                                <option >Chọn dãy</option>
+                                <option ></option>
                                 {Day.map((item, index) => {
                                     return (
                                         <option value={item.id}>{item.name}</option>
@@ -109,7 +112,7 @@ const ModalCreateRoom = (props) => {
                                 value={id_danh_muc}
                                 onChange={(event) => setIdDanhMuc(event.target.value)}
                             >
-                                <option >Chọn danh mục</option>
+                                <option ></option>
                                 {DanhMuc.map((item, index) => {
                                     return (
                                         <option value={item.id}>{item.name}</option>
@@ -124,7 +127,7 @@ const ModalCreateRoom = (props) => {
                                 value={trang_thai}
                                 onChange={(event) => setTrangThai(event.target.value)}
                             >
-                                <option selected>Chọn trạng thái</option>
+                                <option selected></option>
                                 {TrangThai.map((item, index) => {
                                     return (
                                         <option value={item.id}>{item.name}</option>

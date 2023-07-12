@@ -19,8 +19,8 @@ const ModalEditRoom = (props) => {
 
     let { DanhMuc, Day, TrangThai } = props
     useEffect(() => {
-        setIdPhong(listEdit.id_phong)
-        setTen(listEdit.ten_phong)
+        setIdPhong(listEdit.id)
+        setTen(listEdit.ten)
         setAnh(null)
         setMoTa(listEdit.mo_ta)
         setIdDay(listEdit.id_day)
@@ -44,6 +44,8 @@ const ModalEditRoom = (props) => {
             handleChange()
             setSelectedImage(null)
             handleClose()
+        } else if (res && res.errCode === 1) {
+            toast.error(res.message)
         }
 
     }
@@ -99,7 +101,7 @@ const ModalEditRoom = (props) => {
                                 value={id_day}
                                 onChange={(event) => setIdDay(event.target.value)}
                             >
-                                <option >Chọn dãy</option>
+                                <option ></option>
                                 {Day.map((item, index) => {
                                     return (
                                         <option value={item.id}>{item.name}</option>
@@ -114,7 +116,7 @@ const ModalEditRoom = (props) => {
                                 value={id_danh_muc}
                                 onChange={(event) => setIdDanhMuc(event.target.value)}
                             >
-                                <option >Chọn danh mục</option>
+                                <option ></option>
                                 {DanhMuc.map((item, index) => {
                                     return (
                                         <option value={item.id}>{item.name}</option>
@@ -129,7 +131,7 @@ const ModalEditRoom = (props) => {
                                 value={trang_thai}
                                 onChange={(event) => setTrangThai(event.target.value)}
                             >
-                                <option>Chọn trạng thái</option>
+                                <option></option>
                                 {TrangThai.map((item, index) => {
                                     return (
                                         <option value={item.id}>{item.name}</option>

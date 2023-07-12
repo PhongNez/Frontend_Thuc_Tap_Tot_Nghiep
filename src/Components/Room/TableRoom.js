@@ -4,13 +4,24 @@ import { Table } from "react-bootstrap"
 import axios from '../../services/Customize-axios'
 import ModalCreateRoom from "./ModalCreateRoom"
 import ModalEditRoom from "./ModalEditRoom"
+import ModalCreatePrice from "./DetailRoom/ModalCreatePrice"
+import ModalUpdatePrice from "./DetailRoom/ModalUpdatePrice"
+import { link } from "../configs/config-Image"
+
 const TableRoom = () => {
+    //Chi tiết
+    const [isShowModalCreatePrice, setIsShowModalCreatePrice] = useState(false)
+    const [isShowModalUpdatePrice, setIsShowModalUpdatePrice] = useState(false)
+
     const [isShowModalCreate, setIsShowModalCreate] = useState(false)
     const [isShowModalEdit, setIsShowModalEdit] = useState(false)
     const [isShowModalDelete, setIsShowModalDelete] = useState(false)
     const [list, setList] = useState([])
     const [listEdit, setListEdit] = useState([])
+    const [listEditPrice, setListEditPrice] = useState([])
     const [change, setChange] = useState(false)
+
+    console.log('phong', link);
     useEffect(() => {
         getAllRoom()
     }, [change])
@@ -39,6 +50,22 @@ const TableRoom = () => {
         { id: 2, name: "I" },
         { id: 3, name: "M" }
     ];
+
+    let LoaiPhong = [
+        { id: 1, sl_giuong: 6 },
+        { id: 2, sl_giuong: 8 },
+        { id: 3, sl_giuong: 10 },
+        { id: 4, sl_giuong: 12 }
+    ];
+
+    const handleCloseCreatePrice = () => {
+        setIsShowModalCreatePrice(false)
+    }
+
+    const handleCloseUpdatePrice = () => {
+        setIsShowModalUpdatePrice(false)
+    }
+
     const handleCloseCreate = () => {
         setIsShowModalCreate(false)
     }
@@ -55,17 +82,28 @@ const TableRoom = () => {
         setListEdit(item)
         setIsShowModalEdit(true)
     }
+
+    const handleEditPrice = (item) => {
+        console.log(item);
+        setListEditPrice(item)
+        setIsShowModalUpdatePrice(true)
+    }
     return (
         <><div className='my-3 add-new'>
             <span><b>Danh sách phòng:</b></span>
-            <button className='btn btn-success' onClick={() => setIsShowModalCreate(true)}>Thêm phòng</button>
+            <div>
+
+                <button className='btn btn-success mx-2' onClick={() => setIsShowModalCreatePrice(true)}>Thêm giá mới</button>
+                <button className='btn btn-success' onClick={() => setIsShowModalCreate(true)}>Thêm phòng</button></div>
         </div>
-            <Table striped bordered hover>
+            <Table striped bordered hover size="sm" >
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Tên phòng</th>
                         <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Số giường</th>
                         <th>Dãy</th>
                         <th>Danh mục</th>
                         <th>Trạng thái</th>
@@ -76,9 +114,11 @@ const TableRoom = () => {
                     {list && list.length > 0 && list.map((item, index) => {
                         return (
                             <tr key={index}>
-                                <td>{item.id_phong}</td>
-                                <td>{item.ten_phong}</td>
-                                <td>{item.anh}</td>
+                                <td>{item.id}</td>
+                                <td>{item.ten}</td>
+                                <img src={`${link}${item.anh}`} width={80} height={80} />
+                                <td>{item.gia ? `${item.gia} VND` : 'Chưa'} </td>
+                                <td>{item.sl_giuong ? `${item.sl_giuong}` : 'Chưa'}</td>
                                 <td>{item.ten_day}</td>
                                 <td>{item.ten_danh_muc}</td>
                                 {TrangThai.map((item2, index) => {
@@ -90,6 +130,7 @@ const TableRoom = () => {
                                 <td>
                                     <button className='btn btn-warning mx-3' onClick={() => handleEdit(item)}>Sửa</button>
                                     <button className='btn btn-danger' onClick={() => setIsShowModalDelete(true)}>Update</button>
+                                    <button className='btn btn-warning mx-3' disabled={item.id_ctpt ? false : true} onClick={() => handleEditPrice(item)}>Cập nhật giá</button>
                                 </td>
                             </tr>
                         )
@@ -109,13 +150,31 @@ const TableRoom = () => {
             <ModalEditRoom
                 show={isShowModalEdit}
                 handleClose={handleCloseEdit}
-                title={'Modal edit new user'}
+                title={'Cập nhật phòng'}
                 DanhMuc={DanhMuc}
                 Day={Day}
                 TrangThai={TrangThai}
                 handleSave={() => { }}
                 listEdit={listEdit}
                 handleChange={handleChange}
+            />
+
+            <ModalCreatePrice
+                show={isShowModalCreatePrice}
+                handleClose={handleCloseCreatePrice}
+                title={'Thêm giá mới'}
+                LoaiPhong={LoaiPhong}
+                handleChange={handleChange}
+                list={list}
+            />
+            <ModalUpdatePrice
+                show={isShowModalUpdatePrice}
+                handleClose={handleCloseUpdatePrice}
+                title={'Cập nhật chi tiết phòng'}
+                LoaiPhong={LoaiPhong}
+                handleChange={handleChange}
+                listEditPrice={listEditPrice}
+                list={list}
             />
         </>
     )

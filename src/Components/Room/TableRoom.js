@@ -2,8 +2,11 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { Table } from "react-bootstrap"
 import axios from '../../services/Customize-axios'
+
 import ModalCreateRoom from "./ModalCreateRoom"
 import ModalEditRoom from "./ModalEditRoom"
+import ModalDeleteRoom from "./ModalDeleteRoom"
+
 import ModalCreatePrice from "./DetailRoom/ModalCreatePrice"
 import ModalUpdatePrice from "./DetailRoom/ModalUpdatePrice"
 import { link } from "../configs/config-Image"
@@ -18,6 +21,8 @@ const TableRoom = () => {
     const [isShowModalDelete, setIsShowModalDelete] = useState(false)
     const [list, setList] = useState([])
     const [listEdit, setListEdit] = useState([])
+    const [listDelete, setListDelete] = useState([])
+
     const [listEditPrice, setListEditPrice] = useState([])
     const [change, setChange] = useState(false)
 
@@ -66,6 +71,9 @@ const TableRoom = () => {
         setIsShowModalUpdatePrice(false)
     }
 
+    const handleCloseDelete = () => {
+        setIsShowModalDelete(false)
+    }
     const handleCloseCreate = () => {
         setIsShowModalCreate(false)
     }
@@ -83,6 +91,10 @@ const TableRoom = () => {
         setIsShowModalEdit(true)
     }
 
+    const handleDelete = (item) => {
+        setListDelete(item)
+        setIsShowModalDelete(true)
+    }
     const handleEditPrice = (item) => {
         console.log(item);
         setListEditPrice(item)
@@ -129,7 +141,7 @@ const TableRoom = () => {
 
                                 <td>
                                     <button className='btn btn-warning mx-3' onClick={() => handleEdit(item)}>Sửa</button>
-                                    <button className='btn btn-danger' onClick={() => setIsShowModalDelete(true)}>Update</button>
+                                    <button className='btn btn-danger' onClick={() => handleDelete(item)}>Xóa</button>
                                     <button className='btn btn-warning mx-3' disabled={item.id_ctpt ? false : true} onClick={() => handleEditPrice(item)}>Cập nhật giá</button>
                                 </td>
                             </tr>
@@ -159,6 +171,15 @@ const TableRoom = () => {
                 handleChange={handleChange}
             />
 
+            <ModalDeleteRoom
+
+                show={isShowModalDelete}
+                handleClose={handleCloseDelete}
+                title={'Xóa phòng'}
+                handleSave={() => { }}
+                listDelete={listDelete}
+                handleChange={handleChange}
+            />
             <ModalCreatePrice
                 show={isShowModalCreatePrice}
                 handleClose={handleCloseCreatePrice}

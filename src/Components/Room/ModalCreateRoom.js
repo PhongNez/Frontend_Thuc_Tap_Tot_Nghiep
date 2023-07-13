@@ -39,9 +39,12 @@ const ModalCreateRoom = (props) => {
             setTrangThai('')
             setSelectedImage(null)
             handleClose()
-            toast.error(res.message)
+            toast.success(res.message)
         }
         else if (res && res.errCode === 1) {
+            toast.error(res.message)
+        }
+        else if (res && res.errCode === 2) {
             toast.error(res.message)
         }
     }

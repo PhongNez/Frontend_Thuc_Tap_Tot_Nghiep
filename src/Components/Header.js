@@ -19,14 +19,15 @@ const Header = (props) => {
                         className="d-inline-block align-top"
                         alt="React Bootstrap logo"
                     />
-                    Phong Coffee
+                    Phong Trọ
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
 
                         <NavLink to="/" className='nav-link'>Home</NavLink>
-                        <NavLink to="/room" className='nav-link'>Phòng</NavLink>
+                        <NavLink to="/user" className='nav-link'>Tài khoản</NavLink>
+                        <NavLink to="/room" className='nav-link'>Phòng thuê</NavLink>
                     </Nav>
                     <Nav>
                         <NavDropdown title="Setting" id="basic-nav-dropdown">

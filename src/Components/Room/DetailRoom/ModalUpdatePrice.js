@@ -40,7 +40,7 @@ const ModalUpdatePrice = (props) => {
                 <Modal.Body>
                     <form>
                         <div className="mb-3">
-                            <label className="form-label">Phòng: {listEditPrice.ten}</label>
+                            <label className="form-label">Phòng: <h3>{listEditPrice.ten}</h3></label>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Nhập giá:</label>

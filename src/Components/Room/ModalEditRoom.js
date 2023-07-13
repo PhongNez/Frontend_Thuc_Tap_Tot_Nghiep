@@ -46,6 +46,8 @@ const ModalEditRoom = (props) => {
             handleClose()
         } else if (res && res.errCode === 1) {
             toast.error(res.message)
+        } else if (res && res.errCode === 2) {
+            toast.error(res.message)
         }
 
     }

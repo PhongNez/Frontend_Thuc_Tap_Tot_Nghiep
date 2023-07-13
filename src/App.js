@@ -3,6 +3,7 @@ import './App.scss';
 import Header from './Components/Header';
 // import TableUser from './Components/TableUser';
 import TableRoom from './Components/Room/TableRoom';
+import TableUser from './Components/User/TableUser';
 import { Container } from 'react-bootstrap';
 import ModalAddNewUser from './Components/ModalAddNew';
 import Home from './Components/Home';
@@ -29,6 +30,7 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/user" element={<TableUser />} />
             <Route path="/room" element={<TableRoom />} />
             <Route path="/login" element={<Login />} />
           </Routes>

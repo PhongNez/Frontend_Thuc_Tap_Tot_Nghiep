@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from '../../../services/Customize-axios'
+import { setAuthToken } from '../../../services/VerifyToken'
 
 const ModalUpdatePrice = (props) => {
     const { show, handleClose, title, handleChange, list, listEditPrice } = props
@@ -16,6 +17,9 @@ const ModalUpdatePrice = (props) => {
 
     const handleSave = async () => {
         console.log(gia, id_loai_phong);
+        let token = localStorage.getItem('token')
+        console.log(token);
+        setAuthToken(token)
         let res = await axios.put('/chi-tiet-phong/update', { id: id_ctpt, gia, id_loai_phong })
         console.log(res);
         if (res && res.errCode === 0) {

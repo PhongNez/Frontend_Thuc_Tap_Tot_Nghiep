@@ -6,9 +6,12 @@ import Table from 'react-bootstrap/Table';
 // import ModalConfirmDelete from './ModalConfirmDelete';
 import ModalAddUser from './ModalAddUser'
 import ModalEditUser from './ModalEditUser';
+import ModalAddRole from './Role/ModalAddRole';
 import axios from '../../services/Customize-axios'
 
 const TableUser = (props) => {
+
+    const [isShowModalAddRole, setIsShowModalAddRole] = useState(false)
 
     const [listUser, setListUser] = useState([])
     const [totalPages, setTotalPages] = useState(0)
@@ -19,6 +22,7 @@ const TableUser = (props) => {
     const [change, setChange] = useState(false)
 
     const [listEdit, setListEdit] = useState([])
+    const [oneUser, setOneUser] = useState([])
 
     const handleCloseAdd = () => {
         setIsShowModalAdd(false)
@@ -27,10 +31,19 @@ const TableUser = (props) => {
         setIsShowModalEdit(false)
     }
 
+    const handleCloseAddRole = () => {
+        setIsShowModalAddRole(false)
+    }
     const handleEditUser = (item) => {
         console.log("hello Edit", item);
         setIsShowModalEdit(true)
         setListEdit(item)
+    }
+
+    const handleAddRole = (item) => {
+        console.log(item);
+        setOneUser(item)
+        setIsShowModalAddRole(true)
     }
 
     const handleChange = () => {
@@ -57,7 +70,9 @@ const TableUser = (props) => {
     return (
         <><div className='my-3 add-new'>
             <span><b>List User:</b></span>
-            <button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm thông tin</button>
+            <div>
+
+                <button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm thông tin</button></div>
         </div>
             <Table striped bordered hover>
                 <thead>
@@ -90,7 +105,8 @@ const TableUser = (props) => {
 
                                 <td>
                                     <button className='btn btn-warning mx-3' disabled={item.ten ? false : true} onClick={() => handleEditUser(item)}>Cập nhật</button>
-                                    <button className='btn btn-danger' onClick={() => setIsShowModalDelete(true)}>Update</button>
+                                    {/* <button className='btn btn-danger' onClick={() => setIsShowModalDelete(true)}>Update</button> */}
+                                    <button className='btn btn-success' onClick={() => handleAddRole(item)}>Cấp quyền</button>
                                 </td>
                             </tr>
                         )
@@ -111,6 +127,13 @@ const TableUser = (props) => {
                 listUser={listUser}
                 listEdit={listEdit}
                 handleChange={handleChange}
+            />
+            <ModalAddRole
+                show={isShowModalAddRole}
+                handleClose={handleCloseAddRole}
+                listUser={listUser}
+                oneUser={oneUser}
+                title={'Cấp quyền'}
             />
             {/*<ModalConfirmDelete
                 show={isShowModalDelete}

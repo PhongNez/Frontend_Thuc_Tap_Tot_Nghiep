@@ -10,7 +10,7 @@ import ModalDeleteRoom from "./ModalDeleteRoom"
 import ModalCreatePrice from "./DetailRoom/ModalCreatePrice"
 import ModalUpdatePrice from "./DetailRoom/ModalUpdatePrice"
 import { link } from "../configs/config-Image"
-
+import { setAuthToken } from "../../services/VerifyToken"
 const TableRoom = () => {
     //Chi tiết
     const [isShowModalCreatePrice, setIsShowModalCreatePrice] = useState(false)
@@ -27,6 +27,9 @@ const TableRoom = () => {
     const [change, setChange] = useState(false)
 
     console.log('phong', link);
+
+
+
     useEffect(() => {
         getAllRoom()
     }, [change])

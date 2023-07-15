@@ -134,6 +134,7 @@ const TableUser = (props) => {
                 listUser={listUser}
                 oneUser={oneUser}
                 title={'Cấp quyền'}
+                handleChange={handleChange}
             />
             {/*<ModalConfirmDelete
                 show={isShowModalDelete}

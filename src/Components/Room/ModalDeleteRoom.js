@@ -4,20 +4,38 @@ import Modal from 'react-bootstrap/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from '../../services/Customize-axios'
 import { useEffect } from 'react';
+import { setAuthToken } from '../../services/VerifyToken';
 
 const ModalDeleteRoom = (props) => {
     const { show, handleClose, title, handleChange, listDelete } = props
 
     const handleSave = async () => {
         console.log(listDelete.id);
-        let res = await axios.delete(`/room/delete?id=${listDelete.id}`)
-        if (res && res.errCode === 0) {
-            handleChange()
-            handleClose()
-            toast.success(res.message)
-        } else if (res && res.errCode === 1) {
-            toast.error(res.message)
+        let token = localStorage.getItem('token')
+        console.log(token);
+        setAuthToken(token)
+        try {
+            let res = await axios.delete(`/room/delete?id=${listDelete.id}`)
+            console.log(res);
+            if (res && res.errCode === 0) {
+                handleChange()
+                handleClose()
+                toast.success(res.message)
+            } else if (res && res.errCode === 1) {
+                toast.error(res.message)
+            }
+            else {
+                toast.error(res.message)
+            }
+
+        } catch (error) {
+            // toast.error('Không có quyền')
+            console.log('phong');
         }
+
+
+
+
     }
 
     useEffect(() => {

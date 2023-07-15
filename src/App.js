@@ -7,6 +7,7 @@ import TableUser from './Components/User/TableUser';
 import { Container } from 'react-bootstrap';
 import ModalAddNewUser from './Components/ModalAddNew';
 import Home from './Components/Home';
+import HeaderUser from './Components/User/HeaderUser/HeaderUser';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -19,14 +20,36 @@ import {
   Routes
 } from "react-router-dom";
 import Login from './Components/Login/Login';
+
+import { UserContext } from './context/UserContext';
+import { useContext } from 'react';
+
+
+
 function App() {
+  const { user, logout, verifiToken, isLogin, role } = useContext(UserContext);
+
+  const [flag, setFlag] = useState(false)
+  const checkToken = async () => {
+    let veri = await verifiToken()
+    // if (veri && veri.lenght > 0) {
+    //   setFlag(true)
+    // }
+    if (flag) {
+      console.log('Flag', flag);
+    }
+    console.log('vefi:', veri, user.auth);
+  }
+  useEffect(() => {
+    checkToken()
+  }, [])
+
+  console.log('Flag: ', isLogin);
   return (
     <>
       <div className='app-container'>
-
-
         <Container>
-          <Header />
+          {role > 0 ? <Header /> : <HeaderUser />}
 
           <Routes>
             <Route path="/" element={<Home />} />

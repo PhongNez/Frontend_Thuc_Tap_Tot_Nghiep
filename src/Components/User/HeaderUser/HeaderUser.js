@@ -2,11 +2,11 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import logoCoffee from './assets/images/logo-coffee.jpg'
+import logoCoffee from '../../assets/images/logo-coffee.jpg'
 import { NavLink } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../context/UserContext';
-const Header = (props) => {
+import { UserContext } from '../../../context/UserContext';
+const HeaderUser = (props) => {
     const { logout, isLogin } = useContext(UserContext)
 
     const handleLogout = () => {
@@ -23,15 +23,15 @@ const Header = (props) => {
                         className="d-inline-block align-top"
                         alt="React Bootstrap logo"
                     />
-                    Admin Phong Trọ
+                    Phong Trọ
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
 
                         <NavLink to="/" className='nav-link'>Home</NavLink>
-                        <NavLink to="/user" className='nav-link'>Tài khoản</NavLink>
-                        <NavLink to="/room" className='nav-link'>Phòng thuê</NavLink>
+                        {/* <NavLink to="/user" className='nav-link'>Tài khoản</NavLink>
+                        <NavLink to="/room" className='nav-link'>Phòng thuê</NavLink> */}
                     </Nav>
                     <Nav>
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
@@ -49,4 +49,4 @@ const Header = (props) => {
     )
 }
 
-export default Header
+export default HeaderUser

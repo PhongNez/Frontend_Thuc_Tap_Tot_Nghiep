@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from '../../services/Customize-axios'
 import { useEffect } from 'react';
+import { setAuthToken } from '../../services/VerifyToken';
 
 const ModalEditRoom = (props) => {
     const { show, handleClose, title, handleChange, listEdit } = props
@@ -38,6 +39,9 @@ const ModalEditRoom = (props) => {
         formData.append("id_day", id_day);
         formData.append("id_danh_muc", id_danh_muc);
         formData.append("trang_thai", trang_thai);
+        let token = localStorage.getItem('token')
+        console.log(token);
+        setAuthToken(token)
         let res = await axios.put('/room/update', formData, { headers: { "Content-Type": "multipart/form-data" } })
         console.log(res);
         if (res && res.errCode === 0) {

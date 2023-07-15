@@ -8,6 +8,9 @@ import { useEffect } from "react";
 import { setAuthToken } from "../../services/VerifyToken";
 import ModalSignup from './ModalSignup'
 import ModalForgot from "./ModalForgot";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+
 
 const Login = () => {
     const [eye, setEye] = useState(false)
@@ -17,11 +20,13 @@ const Login = () => {
     const [isShowModalForgot, setIsShowModalForgot] = useState(false)
     const navigate = useNavigate();
 
+    const { login } = useContext(UserContext)
+
     useEffect(() => {
         let token = localStorage.getItem('token')
         if (token) {
             setAuthToken(token)
-            navigate('/')
+            // navigate('/')
         }
     }, [])
 
@@ -34,14 +39,18 @@ const Login = () => {
     const handleLogin = async () => {
         // console.log(email, password);
         let res = await createUser(email, password)
+
         console.log(res);
         if (res && res.message) {
             toast.success(res.message)
         }
         if (res && res.data) {
-            localStorage.setItem('token', res.data)
+            let role = await login(res.data)
+            console.log(role[0]);
             navigate('/')
         }
+
+        navigate('/')
     }
     console.log('Eye: ', eye);
     return (

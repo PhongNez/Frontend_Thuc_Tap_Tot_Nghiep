@@ -21,7 +21,9 @@ const ModalAddRole = (props) => {
     const handleSave = async () => {
         console.log('id nguoi dung: ', id, 'Them:', themPhong, 'Xoa:', xoaPhong, 'Sua: ', suaPhong, idSuaPhong, idThemPhong, idXoaPhong);
         let res = await axios.post('/admin/add-role', { themPhong, suaPhong, xoaPhong, ma_nhan_vien: id, idSuaPhong, idThemPhong, idXoaPhong })
-
+        console.log(res);
+        handleChange()
+        handleClose()
     }
     const Lop = [
         { id: 1, ten: 'Công nghệ thông tin' },
@@ -37,6 +39,7 @@ const ModalAddRole = (props) => {
     }, [oneUser])
     const getRole = async (item) => {
         let res = await axios.get(`/admin/get-role?id=${item.id}`)
+        setID(item.id)
         setListRole(res.dataRole)
         console.log('data get role:', res);
         setThemPhong('')
@@ -48,15 +51,15 @@ const ModalAddRole = (props) => {
         res.dataRole.map((item, index) => {
             console.log('item', item.ma_quyen);
             if (item.ma_quyen == '2') {
-                setThemPhong('2')
+                setThemPhong(2)
                 setIDThemPhong(item.id_phan_quyen)
             }
-            else if (item.ma_quyen == '3') {
-                setXoaPhong('3')
+            else if (item.ma_quyen == '4') {
+                setXoaPhong(4)
                 setIDXoaPhong(item.id_phan_quyen)
             }
-            else if (item.ma_quyen == '4') {
-                setSuaPhong('4')
+            else if (item.ma_quyen == '3') {
+                setSuaPhong(3)
                 setIDSuaPhong(item.id_phan_quyen)
             }
         })
@@ -92,18 +95,18 @@ const ModalAddRole = (props) => {
 
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox"
-                                    checked={themPhong === '2'} onChange={() => setThemPhong(themPhong === '2' ? '' : '2')} />
+                                    checked={themPhong === 2} onChange={() => setThemPhong(themPhong === 2 ? '' : 2)} />
                                 <label class="form-check-label" >Thêm phòng</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox"
-                                    checked={xoaPhong === '3'} onChange={() => setXoaPhong(xoaPhong === '3' ? '' : '3')} />
-                                <label class="form-check-label" >Cập nhật phòng</label>
+                                    checked={xoaPhong === 4} onChange={() => setXoaPhong(xoaPhong === 4 ? '' : 4)} />
+                                <label class="form-check-label" >Xóa phòng</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox"
-                                    checked={suaPhong === '4'} onChange={() => setSuaPhong(suaPhong === '4' ? '' : '4')} />
-                                <label class="form-check-label" >Xóa phòng</label>
+                                    checked={suaPhong === 3} onChange={() => setSuaPhong(suaPhong === 3 ? '' : 3)} />
+                                <label class="form-check-label" >Cập nhật phòng</label>
                             </div>
                         </div>
 

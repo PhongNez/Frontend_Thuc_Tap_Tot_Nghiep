@@ -69,7 +69,7 @@ const TableUser = (props) => {
     }
     return (
         <><div className='my-3 add-new'>
-            <span><b>List User:</b></span>
+            <span><b>Danh sách người dùng:</b></span>
             <div>
 
                 <button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm thông tin</button></div>
@@ -106,7 +106,7 @@ const TableUser = (props) => {
                                 <td>
                                     <button className='btn btn-warning mx-3' disabled={item.ten ? false : true} onClick={() => handleEditUser(item)}>Cập nhật</button>
                                     {/* <button className='btn btn-danger' onClick={() => setIsShowModalDelete(true)}>Update</button> */}
-                                    <button className='btn btn-success' onClick={() => handleAddRole(item)}>Cấp quyền</button>
+                                    <button className='btn btn-danger' onClick={() => handleAddRole(item)}>Cấp quyền</button>
                                 </td>
                             </tr>
                         )

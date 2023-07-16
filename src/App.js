@@ -23,7 +23,7 @@ import Login from './Components/Login/Login';
 
 import { UserContext } from './context/UserContext';
 import { useContext } from 'react';
-
+import OrderRoom from './Components/User/OrderRoom/OrderRoom';
 
 
 function App() {
@@ -56,6 +56,7 @@ function App() {
             <Route path="/user" element={<TableUser />} />
             <Route path="/room" element={<TableRoom />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/order-room" element={<OrderRoom />} />
           </Routes>
 
         </Container>

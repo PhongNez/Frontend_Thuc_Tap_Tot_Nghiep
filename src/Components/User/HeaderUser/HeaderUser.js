@@ -30,6 +30,7 @@ const HeaderUser = (props) => {
                     <Nav className="me-auto">
 
                         <NavLink to="/" className='nav-link'>Home</NavLink>
+                        <NavLink to="/order-room" className='nav-link'>Thuê phòng</NavLink>
                         {/* <NavLink to="/user" className='nav-link'>Tài khoản</NavLink>
                         <NavLink to="/room" className='nav-link'>Phòng thuê</NavLink> */}
                     </Nav>

@@ -11,7 +11,7 @@ const UserContext = React.createContext({ name: '', auth: false });
 // @function  UserProvider
 // Create function to provide UserContext
 const UserProvider = ({ children }) => {
-    const [user, setUser] = React.useState({ name: '', auth: false });
+    const [user, setUser] = React.useState({});
     const [isLogin, setIsLogin] = React.useState(false);
     const [role, setRole] = React.useState(0);
     const login = async (token) => {
@@ -21,6 +21,9 @@ const UserProvider = ({ children }) => {
             let res = await axios.post(`/auth/check-role`)
             console.log(res);
             setIsLogin(true)
+            if (res.dataUser) {
+                setUser(res.dataUser)
+            }
             if (res.dataRole && res.dataRole.length > 0) {
                 setRole(res.dataRole.length)
                 console.log('Quyền: ', res.dataRole.length);
@@ -42,6 +45,9 @@ const UserProvider = ({ children }) => {
             let res = await axios.post(`/auth/check-role`)
             console.log(res);
             setIsLogin(true)
+            if (res.dataUser) {
+                setUser(res.dataUser)
+            }
             if (res.dataRole && res.dataRole.length > 0) {
                 setRole(res.dataRole.length)
                 console.log('Quyền: ', res.dataRole.length);

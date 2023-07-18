@@ -31,6 +31,7 @@ const HeaderUser = (props) => {
 
                         <NavLink to="/" className='nav-link'>Home</NavLink>
                         <NavLink to="/order-room" className='nav-link'>Thuê phòng</NavLink>
+                        <NavLink to="/history-order-room" className='nav-link'>Lịch sử thuê phòng</NavLink>
                         {/* <NavLink to="/user" className='nav-link'>Tài khoản</NavLink>
                         <NavLink to="/room" className='nav-link'>Phòng thuê</NavLink> */}
                     </Nav>

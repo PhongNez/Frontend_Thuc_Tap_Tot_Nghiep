@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import axios from '../../../services/Customize-axios'
@@ -6,24 +6,45 @@ import { useState } from 'react';
 import { link } from "../../configs/config-Image"
 import './OrderRoom.scss'
 import ModalOrderRoom from './ModalOrderRoom';
+import { UserContext } from '../../../context/UserContext';
+import ModalChangeOrderRoom from './ModalChangeOrderRoom';
 
 const OrderRoom = () => {
     const [isShowModal, setIsShowModal] = useState(false)
+    const [isShowModalChange, setIsShowModalChange] = useState(false)
+
     const [listRoom, setListRoom] = useState([])
     const [oneRoom, setOneRoom] = useState([])
     const [listPerson, setListPerson] = useState([])
+    const [checkChange, setCheckChange] = useState([])
+    const { user } = useContext(UserContext)
     useEffect(() => {
         getRoom()
+        checkHistory()
     }, [])
 
     const getRoom = async () => {
+        let change = await axios.get('/')
         let res = await axios.get('/order-room/get')
         console.log(res);
         setListRoom(res.dataRoom)
         setListPerson(res.listCountPerson)
     }
+
+    const checkHistory = async () => {
+        // console.log(user);
+        if (user && user[0] && user[0].id) {
+            let res = await axios.get(`/history/get?id=${user[0].id}`)
+            setCheckChange(res.history)
+            console.log('>>> Check api: ', res);
+        }
+    }
     const handleClose = () => {
         setIsShowModal(false)
+    }
+
+    const handleCloseChange = () => {
+        setIsShowModalChange(false)
     }
 
     const handleOrderRoom = (item) => {
@@ -47,6 +68,14 @@ const OrderRoom = () => {
         })
         return dem
     }
+
+    const handleChangOrderRoom = (item) => {
+        console.log(item.id);
+        setOneRoom(item)
+        setIsShowModalChange(true)
+    }
+
+
     return (
         <Container>
             <h1>Danh sách phòng thuê</h1>
@@ -68,6 +97,7 @@ const OrderRoom = () => {
                                 <Card.Text className='myText'>Đã thuê: {countListPerson(item)} người</Card.Text>
                                 <Card.Text className='myText'>Còn lại: {item.sl_giuong - countListPerson(item)} người</Card.Text>
                                 <button className='btn btn-danger' onClick={() => handleOrderRoom(item)}> Thuê phòng</button>
+                                {checkChange.length > 0 ? <button className='btn btn-warning mx-3' onClick={() => handleChangOrderRoom(item)}>Chuyển phòng</button> : ''}
                             </Card.Body>
                         </Card>
                     </Col>
@@ -78,6 +108,12 @@ const OrderRoom = () => {
                 handleClose={handleClose}
                 oneRoom={oneRoom}
                 title={'Thuê phòng'} />
+            <ModalChangeOrderRoom
+                show={isShowModalChange}
+                oneRoom={oneRoom}
+                handleClose={handleCloseChange}
+                title={'Chuyển phòng'}
+            />
         </Container>
     );
 };

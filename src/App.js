@@ -24,6 +24,9 @@ import Login from './Components/Login/Login';
 import { UserContext } from './context/UserContext';
 import { useContext } from 'react';
 import OrderRoom from './Components/User/OrderRoom/OrderRoom';
+import HistoryOrderRoom from './Components/User/HistoryOrderRoom/HistoryOrderRoom';
+import HistoryOrderRoomAll from './Components/User/HistoryOrderRoom/HistoryOrderRoomAll';
+import DetailHistoryOrderRoom from './Components/User/HistoryOrderRoom/DetailHistoryOrderRoom';
 
 
 function App() {
@@ -57,6 +60,9 @@ function App() {
             <Route path="/room" element={<TableRoom />} />
             <Route path="/login" element={<Login />} />
             <Route path="/order-room" element={<OrderRoom />} />
+            <Route path="/history-order-room" element={<HistoryOrderRoom />} />
+            <Route path="/history-order-room/all" element={<HistoryOrderRoomAll />} />
+            <Route path="/history-order-room/detail/:id" element={<DetailHistoryOrderRoom />} />
           </Routes>
 
         </Container>

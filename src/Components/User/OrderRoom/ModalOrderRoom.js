@@ -49,14 +49,14 @@ const ModalOrderRoom = (props) => {
         let checkMonthYear = selectedOption
         const expirationDate = calculateExpirationDate(so_thang);
 
-
+        let so_luong_giuong = oneRoom.sl_giuong
         const formattedDate = formatDate(expirationDate);
         console.log(formattedDate);
 
         console.log('số ngày:', expirationDate);
         console.log('User been room:', user);
-        console.log(user[0].id, oneRoom.id, selectedOption, month);
-        let res = await axios.post('/order-room/create', { id_tai_khoan, id_phong, so_thang, checkMonthYear })
+        console.log(user[0].id, oneRoom.id, selectedOption, month, so_luong_giuong);
+        let res = await axios.post('/order-room/create', { id_tai_khoan, id_phong, so_thang, checkMonthYear, sl_giuong: so_luong_giuong })
         console.log(res);
     }
     const Lop = [

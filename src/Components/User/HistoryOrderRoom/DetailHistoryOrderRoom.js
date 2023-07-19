@@ -4,6 +4,8 @@ import Table from 'react-bootstrap/Table';
 
 import axios from '../../../services/Customize-axios'
 import { useParams } from 'react-router-dom';
+import moment from 'moment'
+import handleFormatDate from '../../configs/format-datetime';
 
 const DetailHistoryOrderRoom = (props) => {
 
@@ -40,19 +42,16 @@ const DetailHistoryOrderRoom = (props) => {
     }
 
     return (
-        <><div className='my-3 add-new'>
-            <span><b>Danh sách người dùng:</b></span>
-            <div>
-
-                <button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm thông tin</button></div>
+        <><div className='text-center my-4'>
+            <h4>Lịch sử  thay đổi của đơn số {id}</h4>
         </div>
             <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Id</th>
                         {/* <th>Phòng</th> */}
-                        {/* <th>Ngày đăng ký</th>
-                        <th>Ngày hết hạn</th> */}
+                        <th>Phòng cũ</th>
+                        <th>Chuyển qua phòng</th>
 
                         {/* <th>Số tháng</th> */}
                         <th>Trạng thái</th>
@@ -67,13 +66,13 @@ const DetailHistoryOrderRoom = (props) => {
                             <tr key={index}>
                                 <td>{item.id}</td>
                                 {/* <td>{item.ten_phong}</td> */}
-                                {/* <td>{item.ngay_dk_thue}</td> */}
-                                {/* <td>{item.ngay_het_han}</td> */}
+                                <td>{item.phong_xua}</td>
+                                <td>{item.phong_moi}</td>
 
                                 {/* <td>{item.so_thang}</td> */}
-                                <td>{item.trang_thai === 1 ? 'Chờ xác nhận' : (item.trang_thai === 2 ? 'Đã xác nhận' : (item.trang_thai === 3 ? 'Đã hủy' : 'Đã hoàn thành'))}</td>
+                                <td>{item.trang_thai === 1 ? 'Chờ xác nhận' : (item.trang_thai === 2 ? 'Đã xác nhận' : (item.trang_thai === 3 ? 'Đã hủy' : (item.trang_thai === 4 ? 'Đã hoàn thành' : 'Chuyển phòng')))}</td>
                                 {/* <td>{item.trang_thai_lich_su}</td> */}
-                                <td>{item.ngay_thay_doi}</td>
+                                <td>{handleFormatDate(item.ngay_thay_doi)}</td>
 
                                 {/* <td> */}
                                 {/* <button className='btn btn-warning mx-3' disabled={item.ten ? false : true} onClick={() => handleEditUser(item)}>Cập nhật</button> */}

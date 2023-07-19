@@ -56,7 +56,7 @@ const TableUser = (props) => {
         </div>
             <Table striped bordered hover>
                 <thead>
-                    <tr>
+                    <tr >
                         <th>Id</th>
                         <th>Email</th>
                         <th>First Name</th>

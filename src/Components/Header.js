@@ -32,13 +32,14 @@ const Header = (props) => {
                         <NavLink to="/" className='nav-link'>Home</NavLink>
                         <NavLink to="/user" className='nav-link'>Tài khoản</NavLink>
                         <NavLink to="/room" className='nav-link'>Phòng thuê</NavLink>
+                        <NavLink to="/history-order-room/all" className='nav-link'>Lịch sử thuê phòng</NavLink>
                     </Nav>
                     <Nav>
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
-                            {isLogin === false ? <NavDropdown.Item href="/login">Login</NavDropdown.Item> :
+                            {isLogin === false ? <NavDropdown.Item href="/login">Đăng nhập</NavDropdown.Item> :
                                 <NavDropdown.Item href="#action/3.2"
                                     onClick={handleLogout}>
-                                    Logout
+                                    Đăng xuất
                                 </NavDropdown.Item>}
 
                         </NavDropdown>

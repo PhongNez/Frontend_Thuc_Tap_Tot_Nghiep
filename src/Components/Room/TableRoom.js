@@ -10,7 +10,10 @@ import ModalDeleteRoom from "./ModalDeleteRoom"
 import ModalCreatePrice from "./DetailRoom/ModalCreatePrice"
 import ModalUpdatePrice from "./DetailRoom/ModalUpdatePrice"
 import { link } from "../configs/config-Image"
+import './TableRoom.scss'
 import { setAuthToken } from "../../services/VerifyToken"
+
+
 const TableRoom = () => {
     //Chi tiết
     const [isShowModalCreatePrice, setIsShowModalCreatePrice] = useState(false)
@@ -103,6 +106,12 @@ const TableRoom = () => {
         setListEditPrice(item)
         setIsShowModalUpdatePrice(true)
     }
+
+    const handleFormatPrice = (price) => {
+        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+        return formattedPrice
+    }
+
     return (
         <><div className='my-3 add-new'>
             <span><b>Danh sách phòng:</b></span>
@@ -111,9 +120,9 @@ const TableRoom = () => {
                 <button className='btn btn-success mx-2' onClick={() => setIsShowModalCreatePrice(true)}>Thêm giá mới</button>
                 <button className='btn btn-success' onClick={() => setIsShowModalCreate(true)}>Thêm phòng</button></div>
         </div>
-            <Table striped bordered hover size="sm" >
+            <Table striped bordered hover size="sm" responsive   >
                 <thead>
-                    <tr>
+                    <tr className="text-center">
                         <th>Id</th>
                         <th>Tên phòng</th>
                         <th>Ảnh</th>
@@ -123,16 +132,17 @@ const TableRoom = () => {
                         <th>Danh mục</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     {list && list.length > 0 && list.map((item, index) => {
                         return (
-                            <tr key={index}>
+                            <tr key={index} className="text-center">
                                 <td>{item.id}</td>
                                 <td>{item.ten}</td>
                                 <img src={`${link}${item.anh}`} width={80} height={80} />
-                                <td>{item.gia ? `${item.gia} VND` : 'Chưa'} </td>
+                                <td>{item.gia ? `${handleFormatPrice(item.gia)}` : 'Chưa'} </td>
                                 <td>{item.sl_giuong ? `${item.sl_giuong}` : 'Chưa'}</td>
                                 <td>{item.ten_day}</td>
                                 <td>{item.ten_danh_muc}</td>
@@ -150,6 +160,8 @@ const TableRoom = () => {
                             </tr>
                         )
                     })}
+
+
                 </tbody>
             </Table>
             <ModalCreateRoom

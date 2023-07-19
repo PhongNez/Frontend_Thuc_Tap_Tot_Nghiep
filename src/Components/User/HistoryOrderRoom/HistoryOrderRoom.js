@@ -6,6 +6,9 @@ import axios from '../../../services/Customize-axios'
 import { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import ModalChangeOrderRoom from '../OrderRoom/ModalChangeOrderRoom';
+import { useNavigate } from 'react-router-dom';
+
+import handleFormatDate from '../../configs/format-datetime'
 
 const HistoryOrderRoom = (props) => {
 
@@ -20,7 +23,7 @@ const HistoryOrderRoom = (props) => {
 
     const [listEdit, setListEdit] = useState([])
     const [oneRoom, setOneRoom] = useState([])
-
+    const navigate = useNavigate();
     const { user } = useContext(UserContext)
     const handleChange = () => {
         setChange(!change)
@@ -52,16 +55,17 @@ const HistoryOrderRoom = (props) => {
 
     const handleChangOrderRoom = (item) => {
         console.log(item);
-        setOneRoom(item)
-        setIsShowModal(true)
+        // setOneRoom(item)
+        // setIsShowModal(true)
+        navigate('/order-room')
     }
 
     return (
-        <><div className='my-3 add-new'>
-            <span><b>Danh sách người dùng:</b></span>
-            <div>
+        <><div className='text-center my-4'>
+            <h4>Đơn bạn đã thuê</h4>
+            {/* <div>
 
-                <button className='btn btn-success'>Thêm thông tin</button></div>
+                <button className='btn btn-success'>Thêm thông tin</button></div> */}
         </div>
             <Table striped bordered hover>
                 <thead>
@@ -83,7 +87,7 @@ const HistoryOrderRoom = (props) => {
                             <tr key={index}>
                                 <td>{item.id}</td>
                                 <td>{item.ten_phong}</td>
-                                <td>{item.ngay_dk_thue}</td>
+                                <td>{handleFormatDate(item.ngay_dk_thue)}</td>
                                 <td>{item.ngay_het_han}</td>
 
                                 <td>{item.so_thang}</td>

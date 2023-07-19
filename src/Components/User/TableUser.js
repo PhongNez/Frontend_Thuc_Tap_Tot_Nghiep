@@ -8,6 +8,7 @@ import ModalAddUser from './ModalAddUser'
 import ModalEditUser from './ModalEditUser';
 import ModalAddRole from './Role/ModalAddRole';
 import axios from '../../services/Customize-axios'
+import './TableUser.scss'
 
 const TableUser = (props) => {
 
@@ -74,9 +75,9 @@ const TableUser = (props) => {
 
                 <button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm thông tin</button></div>
         </div>
-            <Table striped bordered hover>
+            <Table striped bordered hover responsive>
                 <thead>
-                    <tr>
+                    <tr className="text-center">
                         <th>Id</th>
                         <th>Tên</th>
                         <th>Email</th>
@@ -92,7 +93,7 @@ const TableUser = (props) => {
                 <tbody>
                     {listUser && listUser.length > 0 && listUser.map((item, index) => {
                         return (
-                            <tr key={index}>
+                            <tr key={index} className="text-center">
                                 <td>{item.id}</td>
                                 <td>{item.ten}</td>
                                 <td>{item.email}</td>

@@ -14,15 +14,15 @@ const ModalChangeOrderRoom = (props) => {
     const [listRoom, setListRoom] = useState([])
     const { user } = useContext(UserContext)
     const handleSave = async () => {
-        console.log('id_thue_phòng:', oneRoom.id, 'id_tai_khoan: ', user[0].id);
-
-        let res = await axios.put('/chuyenphong', { id_phong: oneRoom.id, id_tai_khoan: user[0].id })
+        console.log('id_thue_phòng:', oneRoom.id, 'id_tai_khoan: ', user[0].id, 'Sl_giuong:', oneRoom.sl_giuong, 'phong moi:', oneRoom.ten);
+        console.log(oneRoom);
+        let res = await axios.put('/chuyenphong', { id_phong: oneRoom.id, id_tai_khoan: user[0].id, sl_giuong: oneRoom.sl_giuong, phong_moi: oneRoom.ten })
         console.log(res);
     }
 
     useEffect(() => {
         getRoom()
-    }, [])
+    }, [user])
 
     const getRoom = async () => {
         let res = await axios.get('/order-room/get')

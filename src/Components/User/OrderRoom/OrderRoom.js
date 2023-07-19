@@ -8,6 +8,7 @@ import './OrderRoom.scss'
 import ModalOrderRoom from './ModalOrderRoom';
 import { UserContext } from '../../../context/UserContext';
 import ModalChangeOrderRoom from './ModalChangeOrderRoom';
+import { useNavigate } from 'react-router-dom';
 
 const OrderRoom = () => {
     const [isShowModal, setIsShowModal] = useState(false)
@@ -18,11 +19,14 @@ const OrderRoom = () => {
     const [listPerson, setListPerson] = useState([])
     const [checkChange, setCheckChange] = useState([])
     const { user } = useContext(UserContext)
+    const navigate = useNavigate();
     useEffect(() => {
         getRoom()
-        checkHistory()
     }, [])
 
+    useEffect(() => {
+        checkHistory()
+    }, [user])
     const getRoom = async () => {
         let change = await axios.get('/')
         let res = await axios.get('/order-room/get')
@@ -34,7 +38,7 @@ const OrderRoom = () => {
     const checkHistory = async () => {
         // console.log(user);
         if (user && user[0] && user[0].id) {
-            let res = await axios.get(`/history/get?id=${user[0].id}`)
+            let res = await axios.get(`/check-history/get?id=${user[0].id}`)
             setCheckChange(res.history)
             console.log('>>> Check api: ', res);
         }
@@ -49,8 +53,12 @@ const OrderRoom = () => {
 
     const handleOrderRoom = (item) => {
         console.log(item);
-        setOneRoom(item)
-        setIsShowModal(true)
+        if (user && user[0] && user[0].id) {
+            setOneRoom(item)
+            setIsShowModal(true)
+        } else {
+            navigate('/login')
+        }
     }
 
     const cardStyle = {
@@ -75,10 +83,10 @@ const OrderRoom = () => {
         setIsShowModalChange(true)
     }
 
-
+    console.log('Check change:', checkChange);
     return (
         <Container>
-            <h1>Danh sách phòng thuê</h1>
+            <h4 className='text-center my-4'>Danh sách phòng thuê</h4>
             <Row>
                 {listRoom.map((item) => (
                     <Col key={item.id} md={4} className="mb-4">
@@ -96,8 +104,8 @@ const OrderRoom = () => {
                                 <Card.Text className='myText'>Số giường: {item.sl_giuong}</Card.Text>
                                 <Card.Text className='myText'>Đã thuê: {countListPerson(item)} người</Card.Text>
                                 <Card.Text className='myText'>Còn lại: {item.sl_giuong - countListPerson(item)} người</Card.Text>
-                                <button className='btn btn-danger' onClick={() => handleOrderRoom(item)}> Thuê phòng</button>
-                                {checkChange.length > 0 ? <button className='btn btn-warning mx-3' onClick={() => handleChangOrderRoom(item)}>Chuyển phòng</button> : ''}
+
+                                {checkChange.length > 0 ? <button className='btn btn-warning' onClick={() => handleChangOrderRoom(item)}>Chuyển phòng</button> : <button className='btn btn-danger' onClick={() => handleOrderRoom(item)}> Thuê phòng</button>}
                             </Card.Body>
                         </Card>
                     </Col>

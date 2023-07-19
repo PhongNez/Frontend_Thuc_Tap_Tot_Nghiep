@@ -5,6 +5,8 @@ import Table from 'react-bootstrap/Table';
 import axios from '../../../services/Customize-axios'
 import { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
+import './History.scss'
+import handleFormatDate from '../../configs/format-datetime';
 
 const HistoryOrderRoomAll = (props) => {
 
@@ -50,35 +52,46 @@ const HistoryOrderRoomAll = (props) => {
         console.log(res);
     }
 
+    const handleDaHoanThanh = async (item) => {
+        console.log(item);
+        let res = await axios.put(`/admin/dahoanthanh?id=${item.id}`)
+        console.log(res);
+    }
+
 
     return (
-        <><div className='my-3 add-new'>
-            <span><b>Danh sách người dùng:</b></span>
-            <div>
+        <><div className='text-center my-4'>
+            <h4>Đơn khách hàng đã thuê</h4>
 
-                <button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm thông tin</button></div>
         </div>
-            <Table striped bordered hover>
+            <Table striped bordered hover responsive>
                 <thead>
-                    <tr>
+                    <tr className="text-center">
                         <th>Id</th>
+                        <th>Người thuê</th>
+                        <th>Email</th>
                         <th>Phòng</th>
+                        <th>Giá phòng</th>
                         <th>Ngày đăng ký</th>
                         <th>Ngày hết hạn</th>
 
                         <th>Số tháng</th>
                         <th>Trạng thái</th>
 
-                        <th>Hành động</th>
+                        <th >Hành động</th>
+                        <th >Chi tiết</th>
                     </tr>
                 </thead>
                 <tbody>
                     {listHistory && listHistory.length > 0 && listHistory.map((item, index) => {
                         return (
-                            <tr key={index}>
+                            <tr key={index} className="text-center">
                                 <td>{item.id}</td>
+                                <td>{item.ten_tai_khoan}</td>
+                                <td>{item.email}</td>
                                 <td>{item.ten_phong}</td>
-                                <td>{item.ngay_dk_thue}</td>
+                                <td>{item.gia}</td>
+                                <td>{handleFormatDate(item.ngay_dk_thue)}</td>
                                 <td>{item.ngay_het_han}</td>
 
                                 <td>{item.so_thang}</td>
@@ -89,12 +102,14 @@ const HistoryOrderRoomAll = (props) => {
                                     {/* <button className='btn btn-warning mx-3' disabled={item.ten ? false : true} onClick={() => handleEditUser(item)}>Cập nhật</button> */}
                                     {/* <button className='btn btn-danger' onClick={() => setIsShowModalDelete(true)}>Update</button> */}
                                     {/* <button className='btn btn-danger' onClick={() => handleAddRole(item)}>Cấp quyền</button> */}
-                                    {item.trang_thai === 1 ? <button className='btn btn-primary' onClick={() => handleXacNhan(item)}>Xác nhận</button> : (item.trang_thai === 2 ? <button className='btn btn-primary mx-3'>Đã hoàn thành</button> : '')}
+                                    {item.trang_thai === 1 ? <button className='btn btn-primary' onClick={() => handleXacNhan(item)}>Xác nhận</button> : (item.trang_thai === 2 ? <button className='btn btn-primary mx-3' onClick={() => handleDaHoanThanh(item)}>Đã hoàn thành</button> : '')}
                                     {item.trang_thai === 1 ? <button className='btn btn-danger mx-3' onClick={() => handleHuy(item)}>Hủy</button> : ''}
                                 </td>
+                                <td><a href={`/history-order-room/detail/${item.id}`}>Xem chi tiết</a></td>
                             </tr>
                         )
                     })}
+
                 </tbody>
             </Table>
 

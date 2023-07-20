@@ -1,25 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { ToastContainer, toast } from 'react-toastify';
-import axios from '../../../services/Customize-axios'
-import { useEffect } from 'react';
-import { UserContext } from '../../../context/UserContext';
-import { useContext } from 'react';
+import axios from '../../services/Customize-axios'
 
+const ModalAddCategory = (props) => {
+    const { show, handleClose, title, handleChange, listUser } = props
 
-const ModalChangeOrderRoom = (props) => {
-    const { show, handleClose, title, handleChange, oneRoom } = props
-    const [id_day, setIdDay] = useState('')
-    const [listRoom, setListRoom] = useState([])
-    const { user } = useContext(UserContext)
+    const [list, setList] = useState([])
+    const [id, setID] = useState("")
+    const [ten, setTen] = useState("")
+
+    let { LoaiPhong } = props
+
     const handleSave = async () => {
-        console.log('id_thue_phòng:', oneRoom.id, 'id_tai_khoan: ', user[0].id, 'Sl_giuong:', oneRoom.sl_giuong, 'phong moi:', oneRoom.ten);
-        console.log(oneRoom);
-        let res = await axios.put('/chuyenphong', { id_phong: oneRoom.id, id_tai_khoan: user[0].id, sl_giuong: oneRoom.sl_giuong, phong_moi: oneRoom.ten })
+        console.log(id, ten);
+        // /room/category/create
+        let res = await axios.post('/room/category/create', { id, ten })
         console.log(res);
         if (res && res.errCode === 0) {
             handleChange()
+            setTen('')
+            setID('')
             handleClose()
             toast.success(res.message)
         }
@@ -29,21 +31,10 @@ const ModalChangeOrderRoom = (props) => {
         else if (res && res.errCode === 2) {
             toast.error(res.message)
         }
-        else if (res && res.errCode === 3) {
-            toast.error(res.message)
-        }
     }
 
     useEffect(() => {
-        getRoom()
-    }, [user])
-
-    const getRoom = async () => {
-        let res = await axios.get('/order-room/get')
-        console.log(res);
-        setListRoom(res.dataRoom)
-    }
-
+    }, [])
     return (
         <>
             <Modal show={show} onHide={handleClose} size="lg">
@@ -53,12 +44,18 @@ const ModalChangeOrderRoom = (props) => {
                 <Modal.Body>
                     <form>
                         <div className="mb-3">
-                            <label className="form-label">Bạn muốn chuyển qua phòng {oneRoom.ten}<h3> </h3> </label>
-                            {/* <input type="text" className="form-control"
+                            <label className="form-label">Nhập id danh mục:</label>
+                            <input type="text" className="form-control"
+                                value={id}
+                                onChange={(event) => setID(event.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Nhập tên danh mục:</label>
+                            <input type="text" className="form-control"
                                 value={ten}
                                 onChange={(event) => setTen(event.target.value)}
-                            /> */}
-
+                            />
                         </div>
 
                     </form>
@@ -69,7 +66,7 @@ const ModalChangeOrderRoom = (props) => {
                     </Button>
                     {/* <Button variant="primary" onClick={() => handleSaveNewUser()}> */}
                     <Button variant="primary" onClick={() => handleSave()}>
-                        Đồng ý
+                        Lưu thay đổi
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -77,4 +74,4 @@ const ModalChangeOrderRoom = (props) => {
     )
 }
 
-export default ModalChangeOrderRoom
+export default ModalAddCategory

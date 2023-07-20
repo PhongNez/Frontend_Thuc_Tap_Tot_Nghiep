@@ -17,7 +17,6 @@ const ModalEditRoom = (props) => {
     const [id_day, setIdDay] = useState('')
     const [id_danh_muc, setIdDanhMuc] = useState('')
     const [trang_thai, setTrangThai] = useState('')
-
     let { DanhMuc, Day, TrangThai } = props
     useEffect(() => {
         setIdPhong(listEdit.id)
@@ -28,6 +27,10 @@ const ModalEditRoom = (props) => {
         setIdDanhMuc(listEdit.id_danh_muc)
         setTrangThai(listEdit.trang_thai)
     }, [listEdit])
+
+    useEffect(() => {
+    }, [DanhMuc])
+
     const handleSave = async () => {
         console.log(ten, anh, mo_ta, id_day, id_danh_muc, trang_thai, id_phong);
 
@@ -125,7 +128,7 @@ const ModalEditRoom = (props) => {
                                 <option ></option>
                                 {DanhMuc.map((item, index) => {
                                     return (
-                                        <option value={item.id}>{item.name}</option>
+                                        <option value={item.id}>{item.ten}</option>
                                     )
                                 })
                                 }

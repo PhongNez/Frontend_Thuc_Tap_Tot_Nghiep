@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from '../../services/Customize-axios'
 import { setAuthToken } from '../../services/VerifyToken';
+import { useEffect } from 'react';
 
 const ModalCreateRoom = (props) => {
     const { show, handleClose, title, handleChange } = props
@@ -17,6 +18,8 @@ const ModalCreateRoom = (props) => {
     const [trang_thai, setTrangThai] = useState('')
 
     let { DanhMuc, Day, TrangThai } = props
+
+
 
     const handleSave = async () => {
         console.log(ten, anh, mo_ta, id_day, id_danh_muc, trang_thai);
@@ -107,7 +110,7 @@ const ModalCreateRoom = (props) => {
                                 <option ></option>
                                 {Day.map((item, index) => {
                                     return (
-                                        <option value={item.id}>{item.name}</option>
+                                        <option value={item.id}>{item.ten}</option>
                                     )
                                 })
                                 }
@@ -122,7 +125,7 @@ const ModalCreateRoom = (props) => {
                                 <option ></option>
                                 {DanhMuc.map((item, index) => {
                                     return (
-                                        <option value={item.id}>{item.name}</option>
+                                        <option value={item.id}>{item.ten}</option>
                                     )
                                 })
                                 }

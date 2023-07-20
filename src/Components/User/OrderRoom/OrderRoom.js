@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 const OrderRoom = () => {
     const [isShowModal, setIsShowModal] = useState(false)
     const [isShowModalChange, setIsShowModalChange] = useState(false)
+    const [change, setChange] = useState(false)
 
     const [listRoom, setListRoom] = useState([])
     const [oneRoom, setOneRoom] = useState([])
@@ -22,13 +23,14 @@ const OrderRoom = () => {
     const navigate = useNavigate();
     useEffect(() => {
         getRoom()
-    }, [])
+
+    }, [change])
 
     useEffect(() => {
         checkHistory()
     }, [user])
     const getRoom = async () => {
-        let change = await axios.get('/')
+
         let res = await axios.get('/order-room/get')
         console.log(res);
         setListRoom(res.dataRoom)
@@ -36,7 +38,6 @@ const OrderRoom = () => {
     }
 
     const checkHistory = async () => {
-        // console.log(user);
         if (user && user[0] && user[0].id) {
             let res = await axios.get(`/check-history/get?id=${user[0].id}`)
             setCheckChange(res.history)
@@ -50,7 +51,10 @@ const OrderRoom = () => {
     const handleCloseChange = () => {
         setIsShowModalChange(false)
     }
-
+    const handleChange = () => {
+        setChange(!change)
+        console.log(change);
+    }
     const handleOrderRoom = (item) => {
         console.log(item);
         if (user && user[0] && user[0].id) {
@@ -115,10 +119,12 @@ const OrderRoom = () => {
                 show={isShowModal}
                 handleClose={handleClose}
                 oneRoom={oneRoom}
+                handleChange={handleChange}
                 title={'Thuê phòng'} />
             <ModalChangeOrderRoom
                 show={isShowModalChange}
                 oneRoom={oneRoom}
+                handleChange={handleChange}
                 handleClose={handleCloseChange}
                 title={'Chuyển phòng'}
             />

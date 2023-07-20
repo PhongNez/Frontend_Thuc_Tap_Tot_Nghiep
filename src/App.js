@@ -27,6 +27,7 @@ import OrderRoom from './Components/User/OrderRoom/OrderRoom';
 import HistoryOrderRoom from './Components/User/HistoryOrderRoom/HistoryOrderRoom';
 import HistoryOrderRoomAll from './Components/User/HistoryOrderRoom/HistoryOrderRoomAll';
 import DetailHistoryOrderRoom from './Components/User/HistoryOrderRoom/DetailHistoryOrderRoom';
+import TableCategory from './Components/Category/Category';
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/user" element={<TableUser />} />
+            <Route path="/category" element={<TableCategory />} />
             <Route path="/room" element={<TableRoom />} />
             <Route path="/login" element={<Login />} />
             <Route path="/order-room" element={<OrderRoom />} />

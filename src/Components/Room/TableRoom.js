@@ -29,6 +29,7 @@ const TableRoom = () => {
     const [listEditPrice, setListEditPrice] = useState([])
     const [change, setChange] = useState(false)
 
+    let [DanhMuc, setDanhMuc] = useState([])
     console.log('phong', link);
 
 
@@ -36,6 +37,17 @@ const TableRoom = () => {
     useEffect(() => {
         getAllRoom()
     }, [change])
+
+    useEffect(() => {
+        getAllCategory()
+    }, [change])
+
+    const getAllCategory = async () => {
+        let res = await axios.get('/room/category/get')
+        setDanhMuc(res.category)
+        console.log('>>> Check api: ', res);
+
+    }
 
     const getAllRoom = async () => {
         let res = await axios.get('/room/get')
@@ -50,11 +62,11 @@ const TableRoom = () => {
         { id: 1, name: "Hoạt động" },
     ];
 
-    let DanhMuc = [
-        { id: 1, name: "Dịch vụ" },
-        { id: 2, name: "Dịch vụ chất lượng cao" },
-        { id: 3, name: "Bình thường" }
-    ];
+    // let DanhMuc = [
+    //     { id: 1, name: "Dịch vụ" },
+    //     { id: 2, name: "Dịch vụ chất lượng cao" },
+    //     { id: 3, name: "Bình thường" }
+    // ];
 
     let Day = [
         { id: 1, name: "J" },

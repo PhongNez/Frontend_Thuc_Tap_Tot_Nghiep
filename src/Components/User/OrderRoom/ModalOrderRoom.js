@@ -59,6 +59,17 @@ const ModalOrderRoom = (props) => {
         console.log(user[0].id, oneRoom.id, selectedOption, month, so_luong_giuong);
         let res = await axios.post('/order-room/create', { id_tai_khoan, id_phong, so_thang, checkMonthYear, sl_giuong: so_luong_giuong })
         console.log(res);
+        if (res && res.errCode === 0) {
+            handleChange()
+            handleClose()
+            toast.success(res.message)
+        }
+        else if (res && res.errCode === 1) {
+            toast.error(res.message)
+        }
+        else if (res && res.errCode === 2) {
+            toast.error(res.message)
+        }
     }
     const Lop = [
         { id: 1, ten: 'Công nghệ thông tin' },

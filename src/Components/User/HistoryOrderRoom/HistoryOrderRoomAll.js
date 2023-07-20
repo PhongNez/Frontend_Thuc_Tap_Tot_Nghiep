@@ -44,18 +44,21 @@ const HistoryOrderRoomAll = (props) => {
         console.log(item);
         let res = await axios.put(`/admin/xacnhan?id=${item.id}`)
         console.log(res);
+        handleChange()
     }
 
     const handleHuy = async (item) => {
         console.log(item);
         let res = await axios.put(`/admin/huy?id=${item.id}`)
         console.log(res);
+        handleChange()
     }
 
     const handleDaHoanThanh = async (item) => {
         console.log(item);
         let res = await axios.put(`/admin/dahoanthanh?id=${item.id}`)
         console.log(res);
+        handleChange()
     }
 
 

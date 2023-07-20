@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import ModalChangeOrderRoom from '../OrderRoom/ModalChangeOrderRoom';
 import { useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
 import handleFormatDate from '../../configs/format-datetime'
 
 const HistoryOrderRoom = (props) => {
@@ -34,6 +34,9 @@ const HistoryOrderRoom = (props) => {
         getAllHistory()
     }, [user])
 
+    useEffect(() => {
+        getAllHistory()
+    }, [change])
     const getAllHistory = async () => {
         // console.log(user);
         if (user && user[0] && user[0].id) {
@@ -47,6 +50,17 @@ const HistoryOrderRoom = (props) => {
         console.log(item);
         let res = await axios.delete(`/xoa?id=${item.id}`)
         console.log(res);
+        if (res && res.errCode === 0) {
+            handleChange()
+            handleClose()
+            toast.success(res.message)
+        }
+        else if (res && res.errCode === 1) {
+            toast.error(res.message)
+        }
+        else if (res && res.errCode === 2) {
+            toast.error(res.message)
+        }
     }
 
     const handleClose = () => {

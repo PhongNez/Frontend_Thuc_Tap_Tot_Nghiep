@@ -13,11 +13,14 @@ const ModalChangeOrderRoom = (props) => {
     const [id_day, setIdDay] = useState('')
     const [listRoom, setListRoom] = useState([])
     const { user } = useContext(UserContext)
+
     const handleSave = async () => {
         console.log('id_thue_phòng:', oneRoom.id, 'id_tai_khoan: ', user[0].id, 'Sl_giuong:', oneRoom.sl_giuong, 'phong moi:', oneRoom.ten);
         console.log(oneRoom);
-        let res = await axios.put('/chuyenphong', { id_phong: oneRoom.id, id_tai_khoan: user[0].id, sl_giuong: oneRoom.sl_giuong, phong_moi: oneRoom.ten })
+        console.log('Hello');
+        let res = await axios.put(`/traphong?id=${oneRoom.id}`)
         console.log(res);
+        // console.log(res);
         if (res && res.errCode === 0) {
             handleChange()
             handleClose()
@@ -26,12 +29,12 @@ const ModalChangeOrderRoom = (props) => {
         else if (res && res.errCode === 1) {
             toast.error(res.message)
         }
-        else if (res && res.errCode === 2) {
-            toast.error(res.message)
-        }
-        else if (res && res.errCode === 3) {
-            toast.error(res.message)
-        }
+        // else if (res && res.errCode === 2) {
+        //     toast.error(res.message)
+        // }
+        // else if (res && res.errCode === 3) {
+        //     toast.error(res.message)
+        // }
     }
 
     useEffect(() => {
@@ -53,7 +56,7 @@ const ModalChangeOrderRoom = (props) => {
                 <Modal.Body>
                     <form>
                         <div className="mb-3">
-                            <label className="form-label">Bạn muốn chuyển qua phòng {oneRoom.ten}<h3> </h3> </label>
+                            <label className="form-label">Nếu bạn trả phòng. Bạn sẽ phải thanh toán số tiền còn lại, phòng này sẽ trống 1 chỗ và người khác đến thuê phòng. Bạn nên cân nhắc !<h3> </h3> </label>
                             {/* <input type="text" className="form-control"
                                 value={ten}
                                 onChange={(event) => setTen(event.target.value)}

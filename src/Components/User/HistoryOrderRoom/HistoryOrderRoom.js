@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table';
 import axios from '../../../services/Customize-axios'
 import { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
-import ModalChangeOrderRoom from '../OrderRoom/ModalChangeOrderRoom';
+import ModalReturnRoom from '../OrderRoom/ModalChangeOrderRoom';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import handleFormatDate from '../../configs/format-datetime'
@@ -74,6 +74,19 @@ const HistoryOrderRoom = (props) => {
         navigate('/order-room')
     }
 
+    const handleReturnRoom = (item) => {
+        console.log(item);
+        setOneRoom(item)
+        // setIsShowModal(true)
+        setIsShowModal(item)
+    }
+
+    const handleHuyTraPhong = async (item) => {
+        console.log(item);
+        let res = await axios.put(`/admin/xacnhan?id=${item.id}`)
+        console.log(res);
+        handleChange()
+    }
     return (
         <><div className='text-center my-4'>
             <h4>Đơn bạn đã thuê</h4>
@@ -112,7 +125,10 @@ const HistoryOrderRoom = (props) => {
                                     {/* <button className='btn btn-warning mx-3' disabled={item.ten ? false : true} onClick={() => handleEditUser(item)}>Cập nhật</button> */}
                                     {/* <button className='btn btn-danger' onClick={() => setIsShowModalDelete(true)}>Update</button> */}
                                     {/* <button className='btn btn-danger' onClick={() => handleAddRole(item)}>Cấp quyền</button> */}
-                                    {item.trang_thai === 1 ? <button className='btn btn-danger mx-3' onClick={() => handleXoa(item)}>Xóa</button> : (item.trang_thai === 2 ? <button className='btn btn-warning mx-3' onClick={() => handleChangOrderRoom(item)}>Chuyển phòng</button> : '')}
+                                    {item.trang_thai === 1 ? <button className='btn btn-danger mx-3' onClick={() => handleXoa(item)}>Xóa</button> :
+                                        (item.trang_thai === 2 ? <button className='btn btn-warning mx-3' onClick={() => handleChangOrderRoom(item)}>Chuyển phòng</button> :
+                                            (item.trang_thai === 5 ? <button className='btn btn-warning mx-3' onClick={() => handleHuyTraPhong(item)}>Hủy trả</button> : ''))}
+                                    {item.trang_thai === 2 ? <button className='btn btn-danger' onClick={() => handleReturnRoom(item)}>Trả phòng</button> : ''}
                                 </td>
                                 <td>
                                     <a href={`/history-order-room/detail/${item.id}`}>Xem chi tiết</a></td>
@@ -122,11 +138,12 @@ const HistoryOrderRoom = (props) => {
                     })}
                 </tbody>
             </Table>
-            <ModalChangeOrderRoom
+            <ModalReturnRoom
                 show={isShowModal}
                 handleClose={handleClose}
                 oneRoom={oneRoom}
-                title={'Chuyển phòng'}
+                handleChange={handleChange}
+                title={'Trả phòng'}
             />
 
         </>

@@ -69,9 +69,9 @@ const TableRoom = () => {
     // ];
 
     let Day = [
-        { id: 1, name: "J" },
-        { id: 2, name: "I" },
-        { id: 3, name: "M" }
+        { id: 1, ten: "J" },
+        { id: 2, ten: "I" },
+        { id: 3, ten: "M" }
     ];
 
     let LoaiPhong = [

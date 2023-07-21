@@ -31,14 +31,16 @@ const HeaderUser = (props) => {
 
                         <NavLink to="/" className='nav-link'>Home</NavLink>
                         <NavLink to="/order-room" className='nav-link'>Thuê phòng</NavLink>
-                        <NavLink to="/history-order-room" className='nav-link'>Lịch sử thuê phòng</NavLink>
+                        {isLogin === true && <NavLink to="/history-order-room" className='nav-link'>Lịch sử thuê phòng</NavLink>}
                         {/* <NavLink to="/user" className='nav-link'>Tài khoản</NavLink>
                         <NavLink to="/room" className='nav-link'>Phòng thuê</NavLink> */}
                     </Nav>
                     <Nav>
+                        <Navbar.Brand>hello</Navbar.Brand>
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
+                            {isLogin === true && <NavDropdown.Item href="/change-password">Đổi mật khẩu</NavDropdown.Item>}
                             {isLogin === false ? <NavDropdown.Item href="/login">Đăng nhập</NavDropdown.Item> :
-                                <NavDropdown.Item href="#action/3.2"
+                                <NavDropdown.Item href="/"
                                     onClick={handleLogout}>
                                     Đăng xuất
                                 </NavDropdown.Item>}

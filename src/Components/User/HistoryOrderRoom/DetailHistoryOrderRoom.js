@@ -70,7 +70,11 @@ const DetailHistoryOrderRoom = (props) => {
                                 <td>{item.phong_moi}</td>
 
                                 {/* <td>{item.so_thang}</td> */}
-                                <td>{item.trang_thai === 1 ? 'Chờ xác nhận' : (item.trang_thai === 2 ? 'Đã xác nhận' : (item.trang_thai === 3 ? 'Đã hủy' : (item.trang_thai === 4 ? 'Đã hoàn thành' : 'Chuyển phòng')))}</td>
+                                <td>{item.trang_thai === 1 ? 'Chờ xác nhận' :
+                                    (item.trang_thai === 2 ? 'Đã xác nhận' :
+                                        (item.trang_thai === 3 ? 'Đã hủy' :
+                                            (item.trang_thai === 4 ? 'Đã hoàn thành' :
+                                                (item.trang_thai === 5 ? 'Chuyển phòng' : 'Trả phòng'))))}</td>
                                 {/* <td>{item.trang_thai_lich_su}</td> */}
                                 <td>{handleFormatDate(item.ngay_thay_doi)}</td>
 

@@ -38,7 +38,7 @@ const Header = (props) => {
                     <Nav>
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
                             {isLogin === false ? <NavDropdown.Item href="/login">Đăng nhập</NavDropdown.Item> :
-                                <NavDropdown.Item href="#action/3.2"
+                                <NavDropdown.Item href="/"
                                     onClick={handleLogout}>
                                     Đăng xuất
                                 </NavDropdown.Item>}

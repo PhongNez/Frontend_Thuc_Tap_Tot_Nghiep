@@ -1,13 +1,32 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import { toast } from 'react-toastify';
+import axios from '../../services/Customize-axios'
 
 const ModalSignup = (props) => {
-    const { show, handleClose, title, handleSave } = props
+    const { show, handleClose, title, } = props
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
+    const handleSave = async (email, password, password2) => {
+        console.log(email, password, password2);
+        let res = await axios.post('/auth/signup', { data: { email, password, password2 } })
+        if (res && res.errCode === 0) {
+            // handleChange()
+            setEmail('')
+            setPassword('')
+            setPassword2('')
+            handleClose()
+            toast.success(res.message)
+        }
+        else if (res && res.errCode === 1) {
+            toast.error(res.message)
+        }
+        else if (res && res.errCode === 2) {
+            toast.error(res.message)
+        }
+    }
     return (
         <>
             <Modal show={show} onHide={handleClose}>
@@ -45,7 +64,7 @@ const ModalSignup = (props) => {
                         Close
                     </Button>
                     {/* <Button variant="primary" onClick={() => handleSaveNewUser()}> */}
-                    <Button variant="primary" onClick={() => handleSave(email, password)}>
+                    <Button variant="primary" onClick={() => handleSave(email, password, password2)}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

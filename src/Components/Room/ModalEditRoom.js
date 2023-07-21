@@ -113,7 +113,7 @@ const ModalEditRoom = (props) => {
                                 <option ></option>
                                 {Day.map((item, index) => {
                                     return (
-                                        <option value={item.id}>{item.name}</option>
+                                        <option value={item.id}>{item.ten}</option>
                                     )
                                 })
                                 }

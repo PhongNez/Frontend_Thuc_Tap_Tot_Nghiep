@@ -8,6 +8,11 @@ const ModalForgot = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [code, setCode] = useState("")
+
+    const btnSendCode = () => {
+
+    }
+
     return (
         <>
             <Modal show={show} onHide={handleClose}>
@@ -31,7 +36,7 @@ const ModalForgot = (props) => {
                                     value={code}
                                     onChange={(event) => setCode(event.target.value)}
                                 />
-                                <button className='btn btn-primary'>Gửi mã</button>
+                                <button className='btn btn-primary' onClick={() => btnSendCode()}>Gửi mã</button>
                             </div>
                         </div>
                         <div className="mb-3">

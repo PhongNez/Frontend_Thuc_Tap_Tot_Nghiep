@@ -10,7 +10,7 @@ import ModalSignup from './ModalSignup'
 import ModalForgot from "./ModalForgot";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-
+import axios from '../../services/Customize-axios'
 
 const Login = () => {
     const [eye, setEye] = useState(false)
@@ -29,6 +29,8 @@ const Login = () => {
             // navigate('/')
         }
     }, [])
+
+
 
     const handleCloseSignup = () => {
         setIsShowModalSignup(false)
@@ -73,6 +75,7 @@ const Login = () => {
             <ModalSignup
                 show={isShowModalSignup}
                 handleClose={handleCloseSignup}
+
                 title={'Đăng ký'}
             />
             <ModalForgot

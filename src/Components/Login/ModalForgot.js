@@ -11,6 +11,7 @@ const ModalForgot = (props) => {
 
     const btnSendCode = () => {
 
+        console.log('Hello');
     }
 
     return (
@@ -31,12 +32,12 @@ const ModalForgot = (props) => {
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Nhập mã code:</label>
-                            <div class="input-group">
+                            <div className="input-group">
                                 <input type="text" className="form-control"
                                     value={code}
                                     onChange={(event) => setCode(event.target.value)}
                                 />
-                                <button className='btn btn-primary' onClick={() => btnSendCode()}>Gửi mã</button>
+                                <button className='btn btn-primary' type="button" onClick={btnSendCode}>Gửi mã</button>
                             </div>
                         </div>
                         <div className="mb-3">

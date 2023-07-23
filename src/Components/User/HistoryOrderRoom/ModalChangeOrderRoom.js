@@ -82,8 +82,9 @@ const ModalChangeOrderRoom = (props) => {
                             >
                                 <option ></option>
                                 {
+                                    // console.log(oneRoom)
                                     listRoom && listRoom.map((item, index) => {
-                                        if (oneRoom.id != item.id) {
+                                        if (oneRoom.id_phong != item.id) {
                                             return (
 
                                                 <option value={item.id}>{item.ten}</option>
@@ -94,7 +95,6 @@ const ModalChangeOrderRoom = (props) => {
 
                             </select>
                         </div>
-
 
                     </form>
                 </Modal.Body>

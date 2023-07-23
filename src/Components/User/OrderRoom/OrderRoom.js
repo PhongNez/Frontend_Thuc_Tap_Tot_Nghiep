@@ -28,9 +28,8 @@ const OrderRoom = () => {
 
     useEffect(() => {
         checkHistory()
-    }, [user])
+    }, [user, change])
     const getRoom = async () => {
-
         let res = await axios.get('/order-room/get')
         console.log(res);
         setListRoom(res.dataRoom)
@@ -83,6 +82,7 @@ const OrderRoom = () => {
 
     const handleChangOrderRoom = (item) => {
         console.log(item.id);
+        console.log('Change One Room: ', item);
         setOneRoom(item)
         setIsShowModalChange(true)
     }
@@ -109,7 +109,11 @@ const OrderRoom = () => {
                                 <Card.Text className='myText'>Đã thuê: {countListPerson(item)} người</Card.Text>
                                 <Card.Text className='myText'>Còn lại: {item.sl_giuong - countListPerson(item)} người</Card.Text>
 
-                                {checkChange.length > 0 ? <button className='btn btn-warning' onClick={() => handleChangOrderRoom(item)}>Chuyển phòng</button> : <button className='btn btn-danger' onClick={() => handleOrderRoom(item)}> Thuê phòng</button>}
+                                {
+                                    // console.log(checkChange[0].id_phong)
+                                    checkChange.length > 0 && checkChange[0].id_phong == item.id
+                                        ? <button className='btn btn-warning' onClick={() => handleChangOrderRoom(item)}>Chuyển phòng</button> : (checkChange.length > 0 ? <button className='btn text-white' disabled >s</button> : <button className='btn btn-danger' onClick={() => handleOrderRoom(item)}> Thuê phòng</button>)
+                                }
                             </Card.Body>
                         </Card>
                     </Col>

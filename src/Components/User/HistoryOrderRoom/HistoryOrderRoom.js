@@ -5,10 +5,11 @@ import Table from 'react-bootstrap/Table';
 import axios from '../../../services/Customize-axios'
 import { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
-import ModalReturnRoom from '../OrderRoom/ModalChangeOrderRoom';
+import ModalReturnRoom from './ModalReturnRoom';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import handleFormatDate from '../../configs/format-datetime'
+import ModalChangeOrderRoom from './ModalChangeOrderRoom';
 
 const HistoryOrderRoom = (props) => {
 
@@ -25,6 +26,9 @@ const HistoryOrderRoom = (props) => {
     const [oneRoom, setOneRoom] = useState([])
     const navigate = useNavigate();
     const { user } = useContext(UserContext)
+
+    const [isShowModalChange, setIsShowModalChange] = useState(false)
+
     const handleChange = () => {
         setChange(!change)
         console.log(change);
@@ -69,9 +73,10 @@ const HistoryOrderRoom = (props) => {
 
     const handleChangOrderRoom = (item) => {
         console.log(item);
-        // setOneRoom(item)
+        setOneRoom(item)
         // setIsShowModal(true)
-        navigate('/order-room')
+        // navigate('/order-room')
+        setIsShowModalChange(true)
     }
 
     const handleReturnRoom = (item) => {
@@ -86,6 +91,10 @@ const HistoryOrderRoom = (props) => {
         let res = await axios.put(`/admin/xacnhan?id=${item.id}`)
         console.log(res);
         handleChange()
+    }
+
+    const handleCloseChange = () => {
+        setIsShowModalChange(false)
     }
     return (
         <><div className='text-center my-4'>
@@ -145,7 +154,13 @@ const HistoryOrderRoom = (props) => {
                 handleChange={handleChange}
                 title={'Trả phòng'}
             />
-
+            <ModalChangeOrderRoom
+                show={isShowModalChange}
+                oneRoom={oneRoom}
+                handleChange={handleChange}
+                handleClose={handleCloseChange}
+                title={'Chuyển phòng'}
+            />
         </>
     )
 }

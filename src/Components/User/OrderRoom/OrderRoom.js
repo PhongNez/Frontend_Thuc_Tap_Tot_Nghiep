@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useEffect } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import axios from '../../../services/Customize-axios'
 import { useState } from 'react';
 import { link } from "../../configs/config-Image"
@@ -16,10 +16,12 @@ const OrderRoom = () => {
     const [change, setChange] = useState(false)
 
     const [listRoom, setListRoom] = useState([])
+    const [listRoomMain, setListRoomMain] = useState([])
     const [oneRoom, setOneRoom] = useState([])
     const [listPerson, setListPerson] = useState([])
     const [checkChange, setCheckChange] = useState([])
     const { user } = useContext(UserContext)
+    let [DanhMuc, setDanhMuc] = useState([])
     const navigate = useNavigate();
     useEffect(() => {
         getRoom()
@@ -29,9 +31,21 @@ const OrderRoom = () => {
     useEffect(() => {
         checkHistory()
     }, [user, change])
+
+    useEffect(() => {
+        getAllCategory()
+    }, [change])
+
+    const getAllCategory = async () => {
+        let res = await axios.get('/room/category/get')
+        setDanhMuc(res.category)
+        console.log('>>> Check api: ', res);
+
+    }
     const getRoom = async () => {
         let res = await axios.get('/order-room/get')
         console.log(res);
+        setListRoomMain(res.dataRoom)
         setListRoom(res.dataRoom)
         setListPerson(res.listCountPerson)
     }
@@ -88,11 +102,80 @@ const OrderRoom = () => {
     }
 
     console.log('Check change:', checkChange);
+
+
+    let Day = [
+        { id: 1, ten: "J" },
+        { id: 2, ten: "I" },
+        { id: 3, ten: "M" }
+    ];
+
+    const handleSearchDay = (day) => {
+        console.log(day);
+        console.log(listRoom);
+        // const result = listRoomMain.filter((item) =>
+        //     item.ten_day.toLowerCase().includes(day.toLowerCase())
+        // );
+        const result = listRoomMain.filter((item) =>
+            item.id_day === day
+        );
+        console.log(result);
+        setListRoom(result)
+    }
+
+    const handleSearchDanhMuc = (danhmuc) => {
+        console.log(danhmuc);
+        console.log(listRoom);
+        const result = listRoomMain.filter((item) =>
+            item.id_danh_muc === danhmuc
+        );
+        console.log(result);
+        setListRoom(result)
+    }
+
     return (
         <Container>
             <h4 className='text-center my-4'>Danh sách phòng thuê</h4>
+
+            <Nav className='flex-row-reverse text-color'>
+                <NavDropdown title="Dãy" id="basic-nav-dropdown" className='text-success'>
+                    {Day.map((item, index) => {
+
+                        return (
+
+                            <NavDropdown.Item onClick={() => handleSearchDay(item.id)}>{item.ten}</NavDropdown.Item>
+                            // <td>{item.ten}</td>
+                        )
+                    })}
+                    {/* <NavDropdown.Item >Đăng nhập</NavDropdown.Item>
+                    <NavDropdown.Item
+                    >
+                        Đăng xuất
+                    </NavDropdown.Item> */}
+
+                </NavDropdown>
+                <NavDropdown title="Danh mục" id="basic-nav-dropdown" >
+                    {DanhMuc.map((item, index) => {
+
+                        return (
+
+                            <NavDropdown.Item onClick={() => handleSearchDanhMuc(item.id)}>{item.ten}</NavDropdown.Item>
+                            // <td>{item.ten}</td>
+                        )
+                    })}
+                    {/* <NavDropdown.Item >Đăng nhập</NavDropdown.Item>
+                    <NavDropdown.Item
+                    >
+                        Đăng xuất
+                    </NavDropdown.Item> */}
+
+                </NavDropdown>
+
+            </Nav>
+            <div className='d-flex flex-row-reverse my-3'><button className='btn btn-primary ' onClick={() => setListRoom(listRoomMain)}>Bỏ lọc  </button></div>
+
             <Row>
-                {listRoom.map((item) => (
+                {listRoom && listRoom.map((item) => (
                     <Col key={item.id} md={4} className="mb-4">
                         <Card style={cardStyle}>
                             <Card.Body>
@@ -101,8 +184,6 @@ const OrderRoom = () => {
 
                                 <Card.Text className='myText'>Giá thuê: {item.gia} VNĐ/người</Card.Text>
                                 <Card.Text className='myText'>Mô tả: {item.mo_ta}</Card.Text>
-
-
                                 <Card.Text className='myText'>Danh mục: {item.ten_danh_muc}</Card.Text>
                                 <Card.Text className='myText'>Dãy: {item.ten_day}</Card.Text>
                                 <Card.Text className='myText'>Số giường: {item.sl_giuong}</Card.Text>

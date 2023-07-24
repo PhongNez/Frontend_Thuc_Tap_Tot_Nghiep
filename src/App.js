@@ -29,6 +29,9 @@ import HistoryOrderRoomAll from './Components/User/HistoryOrderRoom/HistoryOrder
 import DetailHistoryOrderRoom from './Components/User/HistoryOrderRoom/DetailHistoryOrderRoom';
 import TableCategory from './Components/Category/Category';
 import ChangePassword from './Components/User/ChangePassword/ChangePassword';
+import HistoryPrice from './Components/Room/HistoryPrice/HistoryPrice';
+import DetailHistoryPrice from './Components/Room/HistoryPrice/DetailHistoryPrice';
+import Info from './Components/User/Info/Info';
 
 
 function App() {
@@ -67,7 +70,9 @@ function App() {
             <Route path="/history-order-room/all" element={<HistoryOrderRoomAll />} />
             <Route path="/history-order-room/detail/:id" element={<DetailHistoryOrderRoom />} />
             <Route path="/change-password" element={<ChangePassword />} />
-
+            <Route path="/history-price" element={<HistoryPrice />} />
+            <Route path="/history-price/detail/:id" element={<DetailHistoryPrice />} />
+            <Route path="/info" element={<Info />} />
           </Routes>
 
         </Container>

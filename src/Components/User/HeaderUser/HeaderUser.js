@@ -7,8 +7,8 @@ import { NavLink } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../../context/UserContext';
 const HeaderUser = (props) => {
-    const { logout, isLogin } = useContext(UserContext)
-
+    const { logout, isLogin, user, role } = useContext(UserContext)
+    console.log('User: ', user, role);
     const handleLogout = () => {
         logout()
     }
@@ -36,7 +36,7 @@ const HeaderUser = (props) => {
                         {/* <NavLink to="/room" className='nav-link'>Phòng thuê</NavLink> */}
                     </Nav>
                     <Nav>
-                        <Navbar.Brand>hello</Navbar.Brand>
+                        <Navbar.Brand>{user && user[0] && user[0].ten}</Navbar.Brand>
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
                             {isLogin === true && <NavDropdown.Item href="/info">Trang cá nhân</NavDropdown.Item>}
                             {isLogin === true && <NavDropdown.Item href="/change-password">Đổi mật khẩu</NavDropdown.Item>}

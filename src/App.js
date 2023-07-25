@@ -23,30 +23,14 @@ import Login from './Components/Login/Login';
 
 import { UserContext } from './context/UserContext';
 import { useContext } from 'react';
-import OrderRoom from './Components/User/OrderRoom/OrderRoom';
-import HistoryOrderRoom from './Components/User/HistoryOrderRoom/HistoryOrderRoom';
-import HistoryOrderRoomAll from './Components/User/HistoryOrderRoom/HistoryOrderRoomAll';
-import DetailHistoryOrderRoom from './Components/User/HistoryOrderRoom/DetailHistoryOrderRoom';
-import TableCategory from './Components/Category/Category';
-import ChangePassword from './Components/User/ChangePassword/ChangePassword';
-import HistoryPrice from './Components/Room/HistoryPrice/HistoryPrice';
-import DetailHistoryPrice from './Components/Room/HistoryPrice/DetailHistoryPrice';
-import Info from './Components/User/Info/Info';
+import AppRoutes from './routes/AppRoutes';
 
 
 function App() {
   const { user, logout, verifiToken, isLogin, role } = useContext(UserContext);
-
-  const [flag, setFlag] = useState(false)
   const checkToken = async () => {
     let veri = await verifiToken()
-    // if (veri && veri.lenght > 0) {
-    //   setFlag(true)
-    // }
-    if (flag) {
-      console.log('Flag', flag);
-    }
-    console.log('vefi:', veri, user.auth);
+    console.log('vefi:', veri, user);
   }
   useEffect(() => {
     checkToken()
@@ -57,24 +41,9 @@ function App() {
     <>
       <div className='app-container'>
         <Container>
+          {console.log('Role: ', role)}
           {role > 0 ? <Header /> : <HeaderUser />}
-
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/user" element={<TableUser />} />
-            <Route path="/category" element={<TableCategory />} />
-            <Route path="/room" element={<TableRoom />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/order-room" element={<OrderRoom />} />
-            <Route path="/history-order-room" element={<HistoryOrderRoom />} />
-            <Route path="/history-order-room/all" element={<HistoryOrderRoomAll />} />
-            <Route path="/history-order-room/detail/:id" element={<DetailHistoryOrderRoom />} />
-            <Route path="/change-password" element={<ChangePassword />} />
-            <Route path="/history-price" element={<HistoryPrice />} />
-            <Route path="/history-price/detail/:id" element={<DetailHistoryPrice />} />
-            <Route path="/info" element={<Info />} />
-          </Routes>
-
+          <AppRoutes />
         </Container>
       </div>
       <ToastContainer

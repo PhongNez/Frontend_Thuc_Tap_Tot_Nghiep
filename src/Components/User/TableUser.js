@@ -83,7 +83,7 @@ const TableUser = (props) => {
                         <th>Email</th>
                         <th>Mã số SV</th>
 
-                        <th>Sđt</th>
+                        <th>SĐT</th>
                         <th>Lớp</th>
                         <th>Địa chỉ</th>
                         <th>Trạng thái</th>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from '../../services/Customize-axios'
+import { toast } from 'react-toastify';
 
 const ModalForgot = (props) => {
     const { show, handleClose, title } = props
@@ -12,10 +13,32 @@ const ModalForgot = (props) => {
     const btnSendCode = async () => {
         let res = await axios.post('/forgot-password', { email })
         console.log('Hello', res);
+        if (res && res.errCode === 0) {
+            toast.success(res.message)
+        }
+        else if (res && res.errCode === 1) {
+            toast.error(res.message)
+        }
+        else if (res && res.errCode === 2) {
+            toast.error(res.message)
+        }
     }
     const handleSave = async () => {
-        let res = await axios.put('/auth/new-password-forgot', { email })
+        let res = await axios.put('/auth/new-password-forgot', { code, email, mat_khau_moi: password })
         console.log(res);
+        if (res && res.errCode === 0) {
+            setEmail('')
+            setCode('')
+            setPassword('')
+            handleClose()
+            toast.success(res.message)
+        }
+        else if (res && res.errCode === 1) {
+            toast.error(res.message)
+        }
+        else if (res && res.errCode === 2) {
+            toast.error(res.message)
+        }
     }
     return (
         <>
@@ -45,7 +68,7 @@ const ModalForgot = (props) => {
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Nhập mật khẩu:</label>
-                            <input type="text" className="form-control"
+                            <input type="password" className="form-control"
                                 value={password}
                                 onChange={(event) => setPassword(event.target.value)}
                             />

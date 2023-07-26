@@ -22,6 +22,7 @@ import OrderRoom from "../Components/User/OrderRoom/OrderRoom"
 import TableUser from "../Components/User/TableUser"
 
 import PrivateRoute from "./PrivateRoute";
+import CollectMoney from "../Components/CollectMoney/CollectMoney";
 
 const AppRoutes = () => {
     return (
@@ -49,6 +50,7 @@ const AppRoutes = () => {
             <Route path="/history-price" element={<HistoryPrice />} />
             <Route path="/history-price/detail/:id" element={<DetailHistoryPrice />} />
             <Route path="/info" element={<Info />} />
+            <Route path="/collect-money" element={<CollectMoney />} />
         </Routes>)
 }
 

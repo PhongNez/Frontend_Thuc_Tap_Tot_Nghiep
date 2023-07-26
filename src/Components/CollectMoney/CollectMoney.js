@@ -2,31 +2,34 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 
-import axios from '../../../services/Customize-axios'
+import axios from '../../services/Customize-axios'
 import { useContext } from 'react';
-import { UserContext } from '../../../context/UserContext';
-import './History.scss'
-import handleFormatDate from '../../configs/format-datetime';
+import { UserContext } from '../../context/UserContext';
+import handleFormatDate from '../configs/format-datetime';
+import ModalCollectMoney from './ModalCollectMoney';
 
-const HistoryOrderRoomAll = (props) => {
+const CollectMoney = (props) => {
 
     const [isShowModalAddRole, setIsShowModalAddRole] = useState(false)
 
     const [listHistory, setListHistory] = useState([])
-    const [totalPages, setTotalPages] = useState(0)
-    const [totalUsers, setTotalUsers] = useState(0)
-    const [isShowModalAdd, setIsShowModalAdd] = useState(false)
+    const [isShowModal, setIsShowModal] = useState(false)
     const [isShowModalEdit, setIsShowModalEdit] = useState(false)
     const [isShowModalDelete, setIsShowModalDelete] = useState(false)
     const [change, setChange] = useState(false)
 
     const [listEdit, setListEdit] = useState([])
     const [oneUser, setOneUser] = useState([])
-
+    const [taikhoan, setTaiKhoan] = useState('')
+    const [tienPhaiDong, setTienPhaiDong] = useState('')
     const { user } = useContext(UserContext)
     const handleChange = () => {
         setChange(!change)
         console.log(change);
+    }
+
+    const handleClose = () => {
+        setIsShowModal(false)
     }
 
     useEffect(() => {
@@ -35,39 +38,18 @@ const HistoryOrderRoomAll = (props) => {
 
     const getAllHistory = async () => {
         // console.log(user);
-        let res = await axios.get(`/history/get`)
+        let res = await axios.get(`/hitory-collect-money/get`)
         setListHistory(res.history)
         console.log('>>> Check api: ', res);
 
     }
-    const handleXacNhan = async (item) => {
-        console.log(item);
-        console.log('tien_phai_dong', item.gia * item.so_thang);
-        console.log('tien_da_dong', 0);
-        console.log('con_no', item.gia * item.so_thang);
-        console.log('da_thu', 0);
-        console.log('id_nguoi_thue', 0);
 
-        let res = await axios.put(`/admin/xacnhan?id=${item.id}`,
-            { tien_phai_dong: item.gia * item.so_thang, tien_da_dong: 0, con_no: item.gia * item.so_thang, da_thu: 0, id_nguoi_thue: item.id_tai_khoan })
-        console.log(res);
-        handleChange()
+    const handleCollect = (item) => {
+        setIsShowModal(true)
+        setTaiKhoan(item)
+        setTienPhaiDong(item.gia * item.so_thang)
+        console.log(item.gia * item.so_thang);
     }
-
-    const handleHuy = async (item) => {
-        console.log(item);
-        let res = await axios.put(`/admin/huy?id=${item.id}`)
-        console.log(res);
-        handleChange()
-    }
-
-    const handleDaHoanThanh = async (item) => {
-        console.log(item);
-        let res = await axios.put(`/admin/dahoanthanh?id=${item.id}`)
-        console.log(res);
-        handleChange()
-    }
-
 
     return (
         <><div className='text-center my-4'>
@@ -109,17 +91,8 @@ const HistoryOrderRoomAll = (props) => {
                                     (item.trang_thai === 2 ? 'Đã xác nhận' :
                                         (item.trang_thai === 5 ? 'Trả phòng' : 'Đã hoàn thành'))}</td>
 
+                                <td><button className='btn btn-danger mx-3' onClick={() => handleCollect(item)}>Thu tiền</button></td>
 
-                                <td>
-                                    {/* <button className='btn btn-warning mx-3' disabled={item.ten ? false : true} onClick={() => handleEditUser(item)}>Cập nhật</button> */}
-                                    {/* <button className='btn btn-danger' onClick={() => setIsShowModalDelete(true)}>Update</button> */}
-                                    {/* <button className='btn btn-danger' onClick={() => handleAddRole(item)}>Cấp quyền</button> */}
-                                    {item.trang_thai === 1 ? <button className='btn btn-primary' onClick={() => handleXacNhan(item)}>Xác nhận</button> :
-                                        (item.trang_thai === 2 ? <button className='btn btn-primary mx-3' onClick={() => handleDaHoanThanh(item)}>Đã hoàn thành</button> :
-                                            (item.trang_thai === 5 ? <button className='btn btn-primary mx-3' onClick={() => handleDaHoanThanh(item)}>Xác nhận</button> : ''))}
-                                    {item.trang_thai === 1 ? <button className='btn btn-danger mx-3' onClick={() => handleHuy(item)}>Hủy</button> :
-                                        (item.trang_thai === 5 ? <button className='btn btn-danger' onClick={() => handleDaHoanThanh(item)}>Hủy trả</button> : '')}
-                                </td>
                                 <td><a href={`/history-order-room/detail/${item.id}`}>Xem chi tiết</a></td>
                             </tr>
                         )
@@ -127,10 +100,17 @@ const HistoryOrderRoomAll = (props) => {
 
                 </tbody>
             </Table>
-
+            <ModalCollectMoney
+                show={isShowModal}
+                handleClose={handleClose}
+                title={'Thu tiền'}
+                taikhoan={taikhoan}
+                tienPhaiDong={tienPhaiDong}
+                handleChange={handleChange}
+            />
 
         </>
     )
 }
 
-export default HistoryOrderRoomAll
+export default CollectMoney

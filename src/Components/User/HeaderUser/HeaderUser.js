@@ -31,9 +31,9 @@ const HeaderUser = (props) => {
 
                         <NavLink to="/" className='nav-link'>Home</NavLink>
                         <NavLink to="/order-room" className='nav-link'>Thuê phòng</NavLink>
-                        {isLogin === true && <NavLink to="/history-order-room" className='nav-link'>Lịch sử thuê phòng</NavLink>}
                         <NavLink to="/history-price" className='nav-link'>Lịch sử giá phòng</NavLink>
-                        {/* <NavLink to="/room" className='nav-link'>Phòng thuê</NavLink> */}
+                        {isLogin === true && <NavLink to="/history-order-room" className='nav-link'>Lịch sử thuê phòng</NavLink>}
+                        {isLogin === true && <NavLink to="/history-collect-money" className='nav-link'>Lịch sử đóng tiền</NavLink>}
                     </Nav>
                     <Nav>
                         <Navbar.Brand>{user && user[0] && user[0].ten}</Navbar.Brand>

@@ -36,6 +36,7 @@ const Header = (props) => {
                         <NavLink to="/room" className='nav-link'>Phòng thuê</NavLink>
                         <NavLink to="/history-order-room/all" className='nav-link'>Lịch sử thuê phòng</NavLink>
                         <NavLink to="/collect-money" className='nav-link'>Thu tiền</NavLink>
+                        <NavLink to="/collect-elec" className='nav-link'>Thu tiền điện</NavLink>
                     </Nav>
                     <Nav>
                         <NavDropdown title="Setting" id="basic-nav-dropdown">

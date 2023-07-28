@@ -7,6 +7,8 @@ import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import handleFormatDate from '../configs/format-datetime';
 import ModalCollectElec from './ModalCollectElec';
+import moment from 'moment'
+import ModalConfirm from './ModalConfirm';
 
 const CollectElec = (props) => {
 
@@ -14,8 +16,9 @@ const CollectElec = (props) => {
 
     const [listHistory, setListHistory] = useState([])
     const [isShowModal, setIsShowModal] = useState(false)
-    const [isShowModalEdit, setIsShowModalEdit] = useState(false)
+    const [isShowModalConfirm, setIsShowModalConfirm] = useState(false)
     const [isShowModalDelete, setIsShowModalDelete] = useState(false)
+    const [oneRoom, setOneRoom] = useState('')
     const [change, setChange] = useState(false)
 
     const [listEdit, setListEdit] = useState([])
@@ -31,28 +34,33 @@ const CollectElec = (props) => {
     const handleClose = () => {
         setIsShowModal(false)
     }
-
+    const handleCloseConfirm = () => {
+        setIsShowModalConfirm(false)
+    }
     useEffect(() => {
         getAllHistory()
     }, [change])
 
     const getAllHistory = async () => {
         // console.log(user);
-        let res = await axios.get(`/hitory-collect-money/get`)
+        let res = await axios.get(`/history-collect-elec`)
         setListHistory(res.history)
         console.log('>>> Check api: ', res);
 
     }
 
-
-
-    const handleCollect = (item) => {
-        setIsShowModal(true)
-        setTaiKhoan(item)
-        setTienPhaiDong(item.gia * item.so_thang)
-        console.log(item.gia * item.so_thang);
+    const handleConfirm = (item) => {
+        setIsShowModalConfirm(true)
+        setOneRoom(item)
+        console.log(item);
     }
 
+
+
+    const handleFormatDate = (date) => {
+        const formattedDate = moment(date).format('MM/YYYY');
+        return formattedDate
+    }
     return (
         <><div className='my-3 add-new'>
             <span><b>Danh sách người dùng:</b></span>
@@ -65,6 +73,7 @@ const CollectElec = (props) => {
                     <tr className="text-center">
                         <th>Id</th>
                         <th>Phòng</th>
+                        <th>Số SV</th>
                         <th>Chỉ số củ</th>
                         <th>Chỉ số mới</th>
                         <th>Tiêu thụ</th>
@@ -73,9 +82,9 @@ const CollectElec = (props) => {
 
                         <th>Đơn giá 1 KW</th>
                         <th>Thành Tiền</th>
-
+                        <th>Tháng</th>
                         <th >Trạng thái</th>
-                        <th >Chi tiết</th>
+                        <th >Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,21 +92,22 @@ const CollectElec = (props) => {
                         return (
                             <tr key={index} className="text-center">
                                 <td>{item.id}</td>
-                                <td>{item.ten_tai_khoan}</td>
-                                <td>{item.email}</td>
                                 <td>{item.ten_phong}</td>
-                                <td>{item.gia}</td>
-                                <td>{handleFormatDate(item.ngay_dk_thue)}</td>
-                                <td>{item.ngay_het_han}</td>
+                                <td>{item.so_luong}</td>
+                                <td>{item.chi_so_cu}</td>
+                                <td>{item.chi_so_moi}</td>
+                                <td>{item.tieu_thu}</td>
+                                <td>{item.so_kw_dinh_muc}</td>
+                                <td>{item.so_kw_vuot_dinh_muc}</td>
+                                <td>{item.don_gia_1_kw}</td>
+                                <td>{item.thanh_tien}</td>
+                                <td>{item.ngay && handleFormatDate(item.ngay)}</td>
+                                <td>{item.trang_thai === 1 ? 'Chưa đóng' :
+                                    'Đã đóng'}</td>
 
-                                <td>{item.so_thang}</td>
-                                <td>{item.trang_thai === 1 ? 'Chờ xác nhận' :
-                                    (item.trang_thai === 2 ? 'Đã xác nhận' :
-                                        (item.trang_thai === 5 ? 'Trả phòng' : 'Đã hoàn thành'))}</td>
+                                {item.trang_thai === 1 && <td><button className='btn btn-primary mx-3' onClick={() => handleConfirm(item)}>Đã thu</button></td>}
 
-                                <td><button className='btn btn-danger mx-3' onClick={() => handleCollect(item)}>Thu tiền</button></td>
 
-                                <td><a href={`/history-order-room/detail/${item.id}`}>Xem chi tiết</a></td>
                             </tr>
                         )
                     })}
@@ -112,7 +122,13 @@ const CollectElec = (props) => {
                 tienPhaiDong={tienPhaiDong}
                 handleChange={handleChange}
             />
-
+            <ModalConfirm
+                show={isShowModalConfirm}
+                handleClose={handleCloseConfirm}
+                oneRoom={oneRoom}
+                title={'Xác nhận thu tiền'}
+                handleChange={handleChange}
+            />
 
         </>
     )

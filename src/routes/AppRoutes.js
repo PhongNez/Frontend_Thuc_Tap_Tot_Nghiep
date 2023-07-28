@@ -25,6 +25,7 @@ import PrivateRoute from "./PrivateRoute";
 import CollectMoney from "../Components/CollectMoney/CollectMoney";
 import HistoryCollectMoneyUser from "../Components/CollectMoney/HistoryCollectMoneyUser";
 import CollectElec from "../Components/CollectElec/CollectElec";
+import ChonNam from "../Components/DoanhThu/DoanhThu";
 
 const AppRoutes = () => {
     return (
@@ -55,6 +56,7 @@ const AppRoutes = () => {
             <Route path="/collect-money" element={<CollectMoney />} />
             <Route path="/history-collect-money" element={<HistoryCollectMoneyUser />} />
             <Route path="/collect-elec" element={<CollectElec />} />
+            <Route path="/doanh-thu" element={<ChonNam />} />
         </Routes>)
 }
 

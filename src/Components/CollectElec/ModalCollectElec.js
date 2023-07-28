@@ -20,6 +20,7 @@ const ModalCollectElec = (props) => {
     useEffect(() => {
 
         getRoom()
+
     }, [])
     const getRoom = async () => {
         let res = await axios.get('/order-room/get')
@@ -30,37 +31,48 @@ const ModalCollectElec = (props) => {
 
     const countListPerson = (itemRoom) => {
         let dem = 0
-        listPerson.map((item, index) => {
-            if (item.id_phong == itemRoom.id) {
-                dem += 1
-            }
-        })
+
+        if (itemRoom) {
+            listPerson.map((item, index) => {
+                if (item.id_phong == itemRoom.id) {
+                    dem += 1
+                }
+            })
+        }
         return dem
     }
 
     const handleSave = async () => {
         console.log(id_room, so_luong, chi_so_cu, chi_so_moi, don_gia, thang);
-        const foundService = listRoom.find((item) =>
-            item.id == id_room
-        );
-        console.log(foundService);
-        console.log('Phong: ', countListPerson(foundService));
-        let res = await axios.post('/admin/collect-elec',
-            { id_phong: id_room, so_luong, chi_so_cu, chi_so_moi, don_gia, thang, so_luong: countListPerson(foundService) })
-        console.log(res);
-        // console.log(res);
-        // if (res && res.errCode === 0) {
 
-        //     handleClose()
-        //     handleChange()
-        //     toast.success(res.message)
-        // }
-        // else if (res && res.errCode === 1) {
-        //     toast.error(res.message)
-        // }
-        // else if (res && res.errCode === 2) {
-        //     toast.error(res.message)
-        // }
+        if (listRoom && listRoom.length > 0) {
+            const foundService = listRoom.find((item) =>
+                item.id == id_room
+            );
+
+
+            console.log(foundService);
+            console.log('Phong: ', countListPerson(foundService));
+            let res = await axios.post('/admin/collect-elec',
+                { id_phong: id_room, so_luong, chi_so_cu, chi_so_moi, don_gia, thang, so_luong: countListPerson(foundService) })
+            console.log(res);
+            // console.log(res);
+            if (res && res.errCode === 0) {
+
+                handleClose()
+                handleChange()
+                toast.success(res.message)
+            }
+            else if (res && res.errCode === 1) {
+                toast.error(res.message)
+            }
+            else if (res && res.errCode === 2) {
+                toast.error(res.message)
+            }
+            else if (res && res.errCode === 3) {
+                toast.error(res.message)
+            }
+        }
     }
 
 

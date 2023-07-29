@@ -22,7 +22,7 @@ function App() {
     checkToken()
   }, [])
 
-  console.log('Flag: ', isLogin);
+
   return (
     <>
       <div className='app-container'>

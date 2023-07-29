@@ -57,6 +57,11 @@ const ModalOrderRoom = (props) => {
         console.log('số ngày:', expirationDate);
         console.log('User been room:', user);
         console.log(user[0].id, oneRoom.id, selectedOption, month, so_luong_giuong);
+        console.log(user[0].ten, user[0].mssv, user[0].sdt);
+        if (!user[0].ten || !user[0].mssv || !user[0].sdt) {
+            toast.error('Vui lòng cập nhật thông tin cá nhân để tiếp tục thuê')
+            return
+        }
         let res = await axios.post('/order-room/create', { id_tai_khoan, id_phong, so_thang, checkMonthYear, sl_giuong: so_luong_giuong })
         console.log(res);
         if (res && res.errCode === 0) {

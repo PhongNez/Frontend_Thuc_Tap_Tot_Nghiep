@@ -45,14 +45,14 @@ const ModalSignup = (props) => {
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Nhập mật khẩu:</label>
-                            <input type="text" className="form-control"
+                            <input type="password" className="form-control"
                                 value={password}
                                 onChange={(event) => setPassword(event.target.value)}
                             />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Nhập lại mật khẩu:</label>
-                            <input type="text" className="form-control"
+                            <input type="password" className="form-control"
                                 value={password2}
                                 onChange={(event) => setPassword2(event.target.value)}
                             />

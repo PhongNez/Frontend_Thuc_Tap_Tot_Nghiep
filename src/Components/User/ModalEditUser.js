@@ -14,7 +14,6 @@ const ModalEditUser = (props) => {
     const [id_lop, setIDLop] = useState('')
     const [dia_chi, setDiaChi] = useState('')
 
-
     const handleSave = async () => {
         console.log(list.id, ten, mssv, sdt, id_lop, dia_chi);
         let res = await axios.put(`/admin/update-user?id=${list.id}`, {
@@ -35,6 +34,7 @@ const ModalEditUser = (props) => {
         { id: 3, ten: 'Viễn thông' },
     ]
     useEffect(() => {
+
         setList(listEdit)
         setTen(listEdit.ten)
         setMSSV(listEdit.mssv)
@@ -42,6 +42,7 @@ const ModalEditUser = (props) => {
         setIDLop(listEdit.id_lop)
         setDiaChi(listEdit.dia_chi)
     }, [listEdit])
+    console.log('ListEdit', listEdit);
     return (
         <>
             <Modal show={show} onHide={handleClose} size="lg">

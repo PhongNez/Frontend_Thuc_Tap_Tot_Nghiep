@@ -30,6 +30,7 @@ const TableUser = (props) => {
     }
     const handleCloseEdit = () => {
         setIsShowModalEdit(false)
+        setListEdit([])
     }
 
     const handleCloseAddRole = () => {
@@ -71,9 +72,7 @@ const TableUser = (props) => {
     return (
         <><div className='my-3 add-new'>
             <span><b>Danh sách người dùng:</b></span>
-            <div>
-
-                <button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm thông tin</button></div>
+            {/* <div><button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm thông tin</button></div> */}
         </div>
             <Table striped bordered hover responsive>
                 <thead>
@@ -105,7 +104,7 @@ const TableUser = (props) => {
                                 <td>{item.trang_thai}</td>
 
                                 <td>
-                                    <button className='btn btn-warning mx-3' disabled={item.ten ? false : true} onClick={() => handleEditUser(item)}>Cập nhật</button>
+                                    <button className='btn btn-warning mx-3' onClick={() => handleEditUser(item)}>Cập nhật</button>
                                     {/* <button className='btn btn-danger' onClick={() => setIsShowModalDelete(true)}>Update</button> */}
                                     <button className='btn btn-danger' onClick={() => handleAddRole(item)}>Cấp quyền</button>
                                 </td>

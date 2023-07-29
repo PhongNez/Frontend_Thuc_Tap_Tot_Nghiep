@@ -23,15 +23,14 @@ const HeaderUser = (props) => {
                         className="d-inline-block align-top"
                         alt="React Bootstrap logo"
                     />
-                    Phong Trọ
+                    Trang chủ
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
 
-                        <NavLink to="/" className='nav-link'>Home</NavLink>
+                        {/* <NavLink to="/" className='nav-link'>Home</NavLink> */}
                         <NavLink to="/order-room" className='nav-link'>Thuê phòng</NavLink>
-                        <NavLink to="/history-price" className='nav-link'>Lịch sử giá phòng</NavLink>
                         {isLogin === true && <NavLink to="/history-order-room" className='nav-link'>Lịch sử thuê phòng</NavLink>}
                         {isLogin === true && <NavLink to="/history-collect-money" className='nav-link'>Lịch sử đóng tiền</NavLink>}
                     </Nav>

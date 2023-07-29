@@ -15,15 +15,45 @@ const ModalAddRole = (props) => {
     const [idThemPhong, setIDThemPhong] = useState('')
     const [idSuaPhong, setIDSuaPhong] = useState('')
     const [idXoaPhong, setIDXoaPhong] = useState('')
+    const [xemLichSuThuePhong, setXemLichSuThuePhong] = useState('')
+    const [idXemLichSuThuePhong, setIDXemLichSuThuePhong] = useState('')
+    //Thu tiền
+    const [xemThuTien, setXemThuTien] = useState('')
+    const [idXemThuTien, setIDXemThuTien] = useState('')
+
+    //Thu tiền điện
+    const [xemThuTienDien, setXemThuTienDien] = useState('')
+    const [idXemThuTienDien, setIDXemThuTienDien] = useState('')
+
+    //Xem doanh thu
+    const [xemDoanhThu, setXemDoanhThu] = useState('')
+    const [idXemDoanhThu, setIDXemDoanhThu] = useState('')
 
     const [listRole, setListRole] = useState([])
 
+
     const handleSave = async () => {
         console.log('id nguoi dung: ', id, 'Them:', themPhong, 'Xoa:', xoaPhong, 'Sua: ', suaPhong, idSuaPhong, idThemPhong, idXoaPhong);
-        let res = await axios.post('/admin/add-role', { themPhong, suaPhong, xoaPhong, ma_nhan_vien: id, idSuaPhong, idThemPhong, idXoaPhong })
+        let res = await axios.post('/admin/add-role',
+            {
+                themPhong, suaPhong, xoaPhong, ma_nhan_vien: id, idSuaPhong, idThemPhong, idXoaPhong,
+                idXemLichSuThuePhong, xemLichSuThuePhong,
+                idXemThuTien, xemThuTien,
+                idXemThuTienDien, xemThuTienDien,
+                idXemDoanhThu, xemDoanhThu,
+            })
         console.log(res);
-        handleChange()
-        handleClose()
+        if (res && res.errCode === 0) {
+            handleChange()
+            handleClose()
+            toast.success(res.message)
+        }
+        else if (res && res.errCode === 1) {
+            toast.error(res.message)
+        }
+        else if (res && res.errCode === 2) {
+            toast.error(res.message)
+        }
     }
     const Lop = [
         { id: 1, ten: 'Công nghệ thông tin' },
@@ -48,6 +78,10 @@ const ModalAddRole = (props) => {
         setIDThemPhong('')
         setIDSuaPhong('')
         setIDXoaPhong('')
+        setIDXemLichSuThuePhong('')
+        setIDXemThuTien('')
+        setIDXemThuTienDien('')
+        setIDXemDoanhThu('')
         res.dataRole.map((item, index) => {
             console.log('item', item.ma_quyen);
             if (item.ma_quyen == '2') {
@@ -61,6 +95,21 @@ const ModalAddRole = (props) => {
             else if (item.ma_quyen == '3') {
                 setSuaPhong(3)
                 setIDSuaPhong(item.id_phan_quyen)
+            } else if (item.ma_quyen == '6') {
+                setXemLichSuThuePhong(6)
+                setIDXemLichSuThuePhong(item.id_phan_quyen)
+            }
+            else if (item.ma_quyen == '7') {
+                setXemThuTien(7)
+                setIDXemThuTien(item.id_phan_quyen)
+            }
+            else if (item.ma_quyen == '8') {
+                setXemThuTienDien(8)
+                setIDXemThuTienDien(item.id_phan_quyen)
+            }
+            else if (item.ma_quyen == '9') {
+                setXemDoanhThu(9)
+                setIDXemDoanhThu(item.id_phan_quyen)
             }
         })
     }
@@ -108,8 +157,32 @@ const ModalAddRole = (props) => {
                                     checked={suaPhong === 3} onChange={() => setSuaPhong(suaPhong === 3 ? '' : 3)} />
                                 <label class="form-check-label" >Cập nhật phòng</label>
                             </div>
-                        </div>
 
+                        </div>
+                        <label className="form-label">Chọn quyền: </label>
+                        <div className="mb-3">
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox"
+                                    checked={xemLichSuThuePhong === 6} onChange={() => setXemLichSuThuePhong(xemLichSuThuePhong === 6 ? '' : 6)} />
+                                <label class="form-check-label" >Xem lịch sử thuê phòng</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox"
+                                    checked={xemThuTien === 7} onChange={() => setXemThuTien(xemThuTien === 7 ? '' : 7)} />
+                                <label class="form-check-label" >Xem Lịch sử thu tiền</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox"
+                                    checked={xemThuTienDien === 8} onChange={() => setXemThuTienDien(xemThuTienDien === 8 ? '' : 8)} />
+                                <label class="form-check-label" >Xem lịch sử thu tiền điện</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox"
+                                    checked={xemDoanhThu === 9} onChange={() => setXemDoanhThu(xemDoanhThu === 9 ? '' : 9)} />
+                                <label class="form-check-label" >Xem doanh thu</label>
+                            </div>
+                        </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

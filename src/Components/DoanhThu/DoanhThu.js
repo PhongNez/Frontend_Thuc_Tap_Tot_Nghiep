@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
 import Table from 'react-bootstrap/Table';
-import 'react-datepicker/dist/react-datepicker.css';
 import axios from '../../services/Customize-axios'
 import { useEffect } from 'react';
 

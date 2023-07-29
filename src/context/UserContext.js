@@ -14,6 +14,7 @@ const UserProvider = ({ children }) => {
     const [user, setUser] = React.useState({});
     const [isLogin, setIsLogin] = React.useState(false);
     const [role, setRole] = React.useState(0);
+    const [arrRole, setArrRole] = React.useState([]);
     const login = async (token) => {
         localStorage.setItem('token', token)
         if (token) {
@@ -25,6 +26,7 @@ const UserProvider = ({ children }) => {
                 setUser(res.dataUser)
             }
             if (res.dataRole && res.dataRole.length > 0) {
+                setArrRole(res.dataRole)
                 setRole(res.dataRole.length)
                 console.log('Quyền: ', res.dataRole.length);
             }
@@ -49,6 +51,7 @@ const UserProvider = ({ children }) => {
                 setUser(res.dataUser)
             }
             if (res.dataRole && res.dataRole.length > 0) {
+                setArrRole(res.dataRole)
                 setRole(res.dataRole.length)
                 console.log('Quyền: ', res.dataRole.length);
             }
@@ -58,7 +61,7 @@ const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, login, logout, verifiToken, isLogin, role }}>
+        <UserContext.Provider value={{ user, login, logout, verifiToken, isLogin, role, arrRole }}>
             {children}
         </UserContext.Provider>
     );

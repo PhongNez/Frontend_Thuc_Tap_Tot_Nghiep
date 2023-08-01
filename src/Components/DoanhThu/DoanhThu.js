@@ -115,7 +115,8 @@ const ChonNam = () => {
     let total = 0
     return (
         <div>
-            <h2>Chọn năm</h2>
+            <div className='text-center my-4'><h4>Thống kê doanh thu</h4></div>
+
             <select value={selectedYear} onChange={handleChangeYear}>
                 <option value="">-- Chọn năm --</option>
                 {years.map((year) => (

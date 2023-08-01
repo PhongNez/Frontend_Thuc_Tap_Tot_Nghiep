@@ -27,6 +27,8 @@ const ModalEditCategory = (props) => {
             toast.error(res.message)
         } else if (res && res.errCode === 2) {
             toast.error(res.message)
+        } else {
+            toast.error(res.message)
         }
 
     }

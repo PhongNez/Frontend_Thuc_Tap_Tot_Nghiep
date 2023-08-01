@@ -27,6 +27,9 @@ const ModalEditUser = (props) => {
         } else if (res && res.errCode === 1) {
             toast.error(res.message)
         }
+        else {
+            toast.error(res.message)
+        }
     }
     const Lop = [
         { id: 1, ten: 'Công nghệ thông tin' },
@@ -43,6 +46,21 @@ const ModalEditUser = (props) => {
         setDiaChi(listEdit.dia_chi)
     }, [listEdit])
     console.log('ListEdit', listEdit);
+    const handleInputChangeMSSV = (event) => {
+        const value = event.target.value;
+        // Sử dụng biểu thức chính quy (regex) để kiểm tra giá trị nhập vào
+        if (/^[0-9a-zA-Z]{0,10}$/.test(value)) {
+            setMSSV(value);
+        }
+    };
+
+    const handleInputChangeSDT = (event) => {
+        const inputValue = event.target.value;
+        // Chỉ cho phép nhập số và giới hạn tối đa 10 ký tự
+        const numberOnly = inputValue.replace(/\D/g, '');
+        const maxLengthValue = numberOnly.slice(0, 10);
+        setSDT(maxLengthValue);
+    };
     return (
         <>
             <Modal show={show} onHide={handleClose} size="lg">
@@ -80,14 +98,14 @@ const ModalEditUser = (props) => {
                             <label className="form-label">Nhập mã số sinh viên:</label>
                             <input type="text" className="form-control"
                                 value={mssv}
-                                onChange={(event) => setMSSV(event.target.value)}
+                                onChange={(event) => handleInputChangeMSSV(event)}
                             />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Nhập số điện thoại:</label>
                             <input type="text" className="form-control"
                                 value={sdt}
-                                onChange={(event) => setSDT(event.target.value)}
+                                onChange={(event) => handleInputChangeSDT(event)}
                             />
                         </div>
                         <div className="mb-3">

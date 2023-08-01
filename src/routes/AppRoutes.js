@@ -25,43 +25,49 @@ import CollectMoney from "../Components/CollectMoney/CollectMoney";
 import HistoryCollectMoneyUser from "../Components/CollectMoney/HistoryCollectMoneyUser";
 import CollectElec from "../Components/CollectElec/CollectElec";
 import ChonNam from "../Components/DoanhThu/DoanhThu";
-import { PrivateRouteRead, PrivateRouteReadCollectMoney, PrivateRouteReadCollectElec, PrivateRouteReadDoanhThu } from "./PrivateRouteRead";
+import {
+    PrivateRouteUserLogin,
+    PrivateRouteAdminLogin,
+    PrivateRouteRead,
+    PrivateRouteReadCollectMoney,
+    PrivateRouteReadCollectElec,
+    PrivateRouteReadDoanhThu,
+    PrivateRouteReadAccount
+} from "./PrivateRouteRead";
+import DetailHistoryCollectMoney from "../Components/CollectMoney/DetailHistoryCollectMoney";
 
 const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/user" element={<TableUser />} />
-            <Route path="/category" element={<TableCategory />} />
-            <Route path="/room" element={<TableRoom />} />
             <Route path="/login" element={<Login />} />
             <Route path="/order-room" element={<OrderRoom />} />
+            <Route path="/history-price/detail/:id" element={<DetailHistoryPrice />} />
+
+            <Route path="/user" element={
+                <PrivateRouteReadAccount><TableUser /></PrivateRouteReadAccount>} />
+            <Route path="/category" element={<PrivateRouteAdminLogin><TableCategory /></PrivateRouteAdminLogin>} />
+
+            <Route path="/room" element={<PrivateRouteAdminLogin><TableRoom /></PrivateRouteAdminLogin>} />
 
 
 
 
-            <Route path="/history-order-room"
-                element={<PrivateRoute>
-                    <HistoryOrderRoom />
-                </PrivateRoute>} />
+
+            <Route path="/history-order-room" element={<PrivateRoute><HistoryOrderRoom /></PrivateRoute>} />
             {/* <Route path="/history-order-room" element={<HistoryOrderRoom />} /> */}
 
 
-            <Route path="/history-order-room/all"
-                element={
-                    <PrivateRouteRead>
-                        <HistoryOrderRoomAll /></PrivateRouteRead>} />
+            <Route path="/history-order-room/all" element={<PrivateRouteRead><HistoryOrderRoomAll /></PrivateRouteRead>} />
 
-            <Route path="/history-order-room/detail/:id" element={<DetailHistoryOrderRoom />} />
-            <Route path="/change-password" element={<ChangePassword />} />
-            <Route path="/history-price/detail/:id" element={<DetailHistoryPrice />} />
-            <Route path="/info" element={<Info />} />
+            <Route path="/history-order-room/detail/:id" element={<PrivateRouteUserLogin><DetailHistoryOrderRoom /></PrivateRouteUserLogin>} />
+            <Route path="/change-password" element={<PrivateRouteUserLogin><ChangePassword /></PrivateRouteUserLogin>} />
+
+            <Route path="/info" element={<PrivateRouteUserLogin><Info /></PrivateRouteUserLogin>} />
             <Route path="/collect-money" element={<PrivateRouteReadCollectMoney><CollectMoney /></PrivateRouteReadCollectMoney>} />
 
-            <Route path="/history-collect-money" element={
-
-                <HistoryCollectMoneyUser />} />
-
+            <Route path="/history-collect-money" element={<PrivateRouteUserLogin><HistoryCollectMoneyUser /></PrivateRouteUserLogin>} />
+            <Route path="/history-collect-money/detail/:id" element={<PrivateRouteUserLogin><DetailHistoryCollectMoney /></PrivateRouteUserLogin>} />
             <Route path="/collect-elec" element={
                 <PrivateRouteReadCollectElec>
                     <CollectElec /></PrivateRouteReadCollectElec>} />

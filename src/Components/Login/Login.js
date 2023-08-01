@@ -26,7 +26,7 @@ const Login = () => {
         let token = localStorage.getItem('token')
         if (token) {
             setAuthToken(token)
-            // navigate('/')
+            navigate('/')
         }
     }, [])
 
@@ -71,9 +71,9 @@ const Login = () => {
         <div className="login-container col-12 col-sm-4">
             <div className="title">Đăng nhập</div>
             <div className="text">Email của bạn</div>
-            <input type="text" placeholder="Enter email or phone..." onChange={(e) => setEmail(e.target.value)} />
+            <input type="text" placeholder="Nhập email ..." onChange={(e) => setEmail(e.target.value)} />
             <div className="input-2">
-                <input type={eye === true ? "password" : "text"} placeholder="Enter password..." onChange={(e) => setPassword(e.target.value)} />
+                <input type={eye === true ? "password" : "text"} placeholder="Nhập mật khẩu..." onChange={(e) => setPassword(e.target.value)} />
                 {eye === true ? <AiFillEyeInvisible onClick={() => setEye(!eye)} /> : <AiFillEye onClick={() => setEye(!eye)} />}
             </div>
             <div className="quen-mk"><a href="#" className="text-qmk" onClick={() => setIsShowModalForgot(true)}>Quên mật khẩu?</a></div>
@@ -81,7 +81,7 @@ const Login = () => {
                 disabled={email && password ? false : true}
                 className={email && password ? 'active' : ''}
                 onClick={handleLogin}
-            >Log in</button>
+            >Đăng nhập</button>
             {/* <div className="go-back"><IoIosArrowBack /><span className="text-go-back">Go back</span></div> */}
             <div className="sign-up">Bạn không có tài khoản? <a href="#" className="text-dk" onClick={() => setIsShowModalSignup(true)}>Đăng ký</a></div>
             <ModalSignup

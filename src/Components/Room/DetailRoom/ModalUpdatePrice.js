@@ -15,6 +15,16 @@ const ModalUpdatePrice = (props) => {
 
     let { LoaiPhong } = props
 
+    const handleUpdatePrice = (event) => {
+        const value = event.target.value;
+
+        // Kiểm tra nếu giá trị không phải là số thì không cập nhật giá trị
+        if (isNaN(value) || value.includes('.') || value.includes(' ')) {
+            return;
+        }
+
+        setGia(value);
+    };
     const handleSave = async () => {
         console.log(gia, id_loai_phong);
         let token = localStorage.getItem('token')
@@ -26,6 +36,9 @@ const ModalUpdatePrice = (props) => {
             handleChange()
             handleClose()
         } else if (res && res.errCode === 1) {
+            toast.error(res.message)
+        }
+        else {
             toast.error(res.message)
         }
     }
@@ -50,7 +63,7 @@ const ModalUpdatePrice = (props) => {
                             <label className="form-label">Nhập giá:</label>
                             <input type="text" className="form-control"
                                 value={gia}
-                                onChange={(event) => setGia(event.target.value)}
+                                onChange={(event) => handleUpdatePrice(event)}
                             />
                         </div>
                         <div className="mb-3">

@@ -52,7 +52,7 @@ const HistoryPrice = (props) => {
 
     return (
         <><div className='text-center my-4'>
-            <h4>Bảng lịch sử giá phòng</h4>
+            <h4>Bảng giá phòng</h4>
             {/* <div>
 
                 <button className='btn btn-success'>Thêm thông tin</button></div> */}
@@ -78,7 +78,7 @@ const HistoryPrice = (props) => {
                                 <td>{item.ten}</td>
                                 <td>{item.gia}</td>
                                 <td>{item.hieu_luc_tu && handleFormatDate(item.hieu_luc_tu)}</td>
-                                <td>{item.hieu_luc_den}</td>
+                                <td>{item.hieu_luc_den && handleFormatDate(item.hieu_luc_den)}</td>
                                 <td>{item.sl_giuong} giường</td>
                                 <td>{item.ten_danh_muc}</td>
 

@@ -18,15 +18,18 @@ const ModalChangeOrderRoom = (props) => {
 
     const handleSave = async () => {
 
+        console.log('Chuyển phòng: ', oneRoomModal);
         console.log('Id phong: ', id_room, 'id tai khoan: ', user[0].id, 'Phong moi: ', oneRoom.ten, 'sl_giuong: ', oneRoomModal.sl_giuong, oneRoomModal);
 
-
+        console.log(oneRoomModal.gia * oneRoom.so_thang);
+        // tien_phai_dong: item.gia * item.so_thang, tien_da_dong: 0, con_no: item.gia * item.so_thang, da_thu: 0
         // id_phong, id_tai_khoan, sl_giuong, phong_moi
         if (!id_room) {
-            toast.error('Bạn chưa chọn phòng!')
+            toast.error('Bạn chưa chọn phòng né!')
             return
         }
-        let res = await axios.put(`/chuyenphong`, { id_phong: id_room, id_tai_khoan: user[0].id, sl_giuong: oneRoomModal.sl_giuong, phong_moi: oneRoomModal.ten })
+        let res = await axios.put(`/chuyenphong`,
+            { id_phong: id_room, id_tai_khoan: user[0].id, sl_giuong: oneRoomModal.sl_giuong, phong_moi: oneRoomModal.ten, tien_phai_dong: oneRoomModal.gia * oneRoom.so_thang })
         console.log(res);
         // // console.log(res);
         if (res && res.errCode === 0) {
@@ -53,6 +56,7 @@ const ModalChangeOrderRoom = (props) => {
         listRoom && listRoom.map((item, index) => {
             if (id_room == item.id) {
                 setOneRoomModal(item)
+                console.log(item);
                 return
             }
         })

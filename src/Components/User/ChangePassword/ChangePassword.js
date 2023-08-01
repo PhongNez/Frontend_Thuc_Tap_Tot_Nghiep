@@ -43,7 +43,7 @@ const ChangePassword = () => {
             <div className="login-container col-12 col-sm-4">
                 <div className="title my-3">Đổi mật khẩu</div>
                 <div className="text">Mật khẩu hiện tại</div>
-                <input type="text" onChange={(e) => setPassword(e.target.value)} />
+                <input type="password" onChange={(e) => setPassword(e.target.value)} />
                 <div className="text">Mật khẩu mới</div>
                 <input type={"password"} onChange={(e) => setPassword1(e.target.value)} />
                 <div className="text">Nhập lại mật khẩu mới</div>

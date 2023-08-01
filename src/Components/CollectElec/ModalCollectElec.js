@@ -28,7 +28,50 @@ const ModalCollectElec = (props) => {
         setListRoom(res.dataRoom)
         setListPerson(res.listCountPerson)
     }
+    const handleChiSoCu = (event) => {
+        const value = event.target.value;
 
+        // Kiểm tra nếu giá trị không phải là số thì không cập nhật giá trị
+        if (isNaN(value) || value.includes('.') || value.includes(' ')) {
+            return;
+        }
+
+        setChiSoCu(value);
+    };
+    const handleChiSoMoi = (event) => {
+        const value = event.target.value;
+
+        // Kiểm tra nếu giá trị không phải là số thì không cập nhật giá trị
+        if (isNaN(value) || value.includes('.') || value.includes(' ')) {
+            return;
+        }
+
+        setChiSoMoi(value);
+    };
+    const handleDonGia = (event) => {
+        const value = event.target.value;
+
+        // Kiểm tra nếu giá trị không phải là số thì không cập nhật giá trị
+        if (isNaN(value) || value.includes('.') || value.includes(' ')) {
+            return;
+        }
+
+        setDonGia(value);
+    };
+
+    const handleThang = (event) => {
+        const value = event.target.value;
+
+        // Kiểm tra nếu giá trị không phải là số thì không cập nhật giá trị
+        if (isNaN(value) || value.includes('.') || value.includes(' ')) {
+            return;
+        }
+        if (Number(value) > 12) {
+            return;
+        }
+
+        setThang(value);
+    };
     const countListPerson = (itemRoom) => {
         let dem = 0
 
@@ -88,7 +131,7 @@ const ModalCollectElec = (props) => {
                             <label className="form-label">Nhập tháng:</label>
                             <input type="text" className="form-control"
                                 value={thang}
-                                onChange={(event) => setThang(event.target.value)}
+                                onChange={(event) => handleThang(event)}
                             />
                         </div>
                         <div className="mb-3">
@@ -117,21 +160,21 @@ const ModalCollectElec = (props) => {
                             <label className="form-label">Nhập chỉ số củ:</label>
                             <input type="text" className="form-control"
                                 value={chi_so_cu}
-                                onChange={(event) => setChiSoCu(event.target.value)}
+                                onChange={(event) => handleChiSoCu(event)}
                             />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Nhập chỉ số mới:</label>
                             <input type="text" className="form-control"
                                 value={chi_so_moi}
-                                onChange={(event) => setChiSoMoi(event.target.value)}
+                                onChange={(event) => handleChiSoMoi(event)}
                             />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Nhập đơn giá: </label>
                             <input type="text" className="form-control"
                                 value={don_gia}
-                                onChange={(event) => setDonGia(event.target.value)}
+                                onChange={(event) => handleDonGia(event)}
                             />
                         </div>
 

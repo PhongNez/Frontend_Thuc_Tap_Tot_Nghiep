@@ -49,6 +49,17 @@ const ModalCollectMoney = (props) => {
         }
     }
 
+    const handleTienThu = (event) => {
+        const value = event.target.value;
+
+        // Kiểm tra nếu giá trị không phải là số thì không cập nhật giá trị
+        if (isNaN(value) || value.includes('.') || value.includes(' ')) {
+            return;
+        }
+
+        setTienThu(value);
+    };
+
     let check = dataThuTien && dataThuTien[0]
     return (
         <>
@@ -76,7 +87,7 @@ const ModalCollectMoney = (props) => {
                             <label className="form-label">Nhập tiền thu:</label>
                             <input type="text" className="form-control"
                                 value={tienThu}
-                                onChange={(event) => setTienThu(event.target.value)}
+                                onChange={(event) => handleTienThu(event)}
                             />
                         </div>
                         <div className="mb-3">

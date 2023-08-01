@@ -7,11 +7,12 @@ import { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import './History.scss'
 import handleFormatDate from '../../configs/format-datetime';
+import ModalDaHoanThanh from './ModalDaHoanThanh';
 
 const HistoryOrderRoomAll = (props) => {
 
-    const [isShowModalAddRole, setIsShowModalAddRole] = useState(false)
-
+    const [isShowModal, setIsShowModal] = useState(false)
+    const [oneRoom, setOneRoom] = useState([])
     const [listHistory, setListHistory] = useState([])
     const [totalPages, setTotalPages] = useState(0)
     const [totalUsers, setTotalUsers] = useState(0)
@@ -24,6 +25,11 @@ const HistoryOrderRoomAll = (props) => {
     const [oneUser, setOneUser] = useState([])
 
     const { user } = useContext(UserContext)
+
+    const handleClose = () => {
+        setIsShowModal(false)
+    }
+
     const handleChange = () => {
         setChange(!change)
         console.log(change);
@@ -62,12 +68,17 @@ const HistoryOrderRoomAll = (props) => {
     }
 
     const handleDaHoanThanh = async (item) => {
+        setIsShowModal(true)
+        setOneRoom(item)
+
+    }
+
+    const handleHuyTraPhong = async (item) => {
         console.log(item);
-        let res = await axios.put(`/admin/dahoanthanh?id=${item.id}`)
+        let res = await axios.put(`/huy-tra?id=${item.id}`)
         console.log(res);
         handleChange()
     }
-
 
     return (
         <><div className='text-center my-4'>
@@ -101,8 +112,8 @@ const HistoryOrderRoomAll = (props) => {
                                 <td>{item.email}</td>
                                 <td>{item.ten_phong}</td>
                                 <td>{item.gia}</td>
-                                <td>{handleFormatDate(item.ngay_dk_thue)}</td>
-                                <td>{item.ngay_het_han}</td>
+                                <td>{item.ngay_dk_thue && handleFormatDate(item.ngay_dk_thue)}</td>
+                                <td>{item.ngay_het_han && handleFormatDate(item.ngay_het_han)}</td>
 
                                 <td>{item.so_thang}</td>
                                 <td>{item.trang_thai === 1 ? 'Chờ xác nhận' :
@@ -118,7 +129,7 @@ const HistoryOrderRoomAll = (props) => {
                                         (item.trang_thai === 2 ? <button className='btn btn-primary mx-3' onClick={() => handleDaHoanThanh(item)}>Đã hoàn thành</button> :
                                             (item.trang_thai === 5 ? <button className='btn btn-primary mx-3' onClick={() => handleDaHoanThanh(item)}>Xác nhận</button> : ''))}
                                     {item.trang_thai === 1 ? <button className='btn btn-danger mx-3' onClick={() => handleHuy(item)}>Hủy</button> :
-                                        (item.trang_thai === 5 ? <button className='btn btn-danger' onClick={() => handleDaHoanThanh(item)}>Hủy trả</button> : '')}
+                                        (item.trang_thai === 5 ? <button className='btn btn-danger' onClick={() => handleHuyTraPhong(item)}>Hủy trả</button> : '')}
                                 </td>
                                 <td><a href={`/history-order-room/detail/${item.id}`}>Xem chi tiết</a></td>
                             </tr>
@@ -127,7 +138,13 @@ const HistoryOrderRoomAll = (props) => {
 
                 </tbody>
             </Table>
-
+            <ModalDaHoanThanh
+                show={isShowModal}
+                handleClose={handleClose}
+                oneRoom={oneRoom}
+                handleChange={handleChange}
+                title={'Người thuê đã hoàn thành việc thuê phòng'}
+            />
 
         </>
     )

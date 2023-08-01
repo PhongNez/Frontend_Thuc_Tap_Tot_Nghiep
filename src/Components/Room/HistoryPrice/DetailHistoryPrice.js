@@ -66,7 +66,7 @@ const DetailHistoryPrice = (props) => {
                                 <td>{item.ten_phong}</td>
                                 <td>{item.gia}</td>
                                 <td>{item.hieu_luc_tu && handleFormatDate(item.hieu_luc_tu)}</td>
-                                <td>{item.phong_moi}</td>
+                                <td>{item.hieu_luc_den && handleFormatDate(item.hieu_luc_den)}</td>
 
                                 <td>{item.sl_giuong}</td>
                                 <td>{item.ten_danh_muc}</td>

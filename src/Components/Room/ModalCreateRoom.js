@@ -54,6 +54,9 @@ const ModalCreateRoom = (props) => {
         else if (res && res.errCode === 2) {
             toast.error(res.message)
         }
+        else {
+            toast.error(res.message)
+        }
     }
     const handleOnChangeImage = (e) => {
         const file = e.target.files[0];

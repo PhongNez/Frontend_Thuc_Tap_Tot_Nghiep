@@ -31,7 +31,7 @@ const ModalOrderRoom = (props) => {
         const value = event.target.value;
 
         // Kiểm tra nếu giá trị không phải là số thì không cập nhật giá trị
-        if (isNaN(value) || value.includes('.')) {
+        if (isNaN(value) || value.includes('.') || value.includes(' ')) {
             return;
         }
         if (date == 'month' && Number(value) > 48) {

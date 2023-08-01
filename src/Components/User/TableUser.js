@@ -10,7 +10,12 @@ import ModalAddRole from './Role/ModalAddRole';
 import axios from '../../services/Customize-axios'
 import './TableUser.scss'
 
+import { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
+
 const TableUser = (props) => {
+    const { logout, isLogin, user, role, arrRole } = useContext(UserContext)
+    const [check, setCheck] = useState(false)
 
     const [isShowModalAddRole, setIsShowModalAddRole] = useState(false)
 
@@ -64,11 +69,12 @@ const TableUser = (props) => {
 
     }
 
-    console.log(totalPages);
-    const handlePageClick = (event) => {
-        console.log('>>>Check event: ', event.selected);
-        // getAllUser(event.selected + 1)
-    }
+    useEffect(() => {
+        const find = arrRole.find((item) => item.ma_quyen == 1)
+        if (find) {
+            setCheck(true)
+        }
+    }, [])
     return (
         <><div className='my-3 add-new'>
             <span><b>Danh sách người dùng:</b></span>
@@ -101,12 +107,12 @@ const TableUser = (props) => {
                                 <td>{item.sdt}</td>
                                 <td>{item.ten_lop}</td>
                                 <td>{item.dia_chi}</td>
-                                <td>{item.trang_thai}</td>
+                                <td>{item.trang_thai == 1 ? 'Hoạt động' : ''}</td>
 
                                 <td>
                                     <button className='btn btn-warning mx-3' onClick={() => handleEditUser(item)}>Cập nhật</button>
                                     {/* <button className='btn btn-danger' onClick={() => setIsShowModalDelete(true)}>Update</button> */}
-                                    <button className='btn btn-danger' onClick={() => handleAddRole(item)}>Cấp quyền</button>
+                                    {check === true && <button className='btn btn-danger' onClick={() => handleAddRole(item)}>Cấp quyền</button>}
                                 </td>
                             </tr>
                         )
@@ -123,7 +129,7 @@ const TableUser = (props) => {
             <ModalEditUser
                 show={isShowModalEdit}
                 handleClose={handleCloseEdit}
-                title={'Modal edit new user'}
+                title={'Cập nhật thông tin người dùng'}
                 listUser={listUser}
                 listEdit={listEdit}
                 handleChange={handleChange}

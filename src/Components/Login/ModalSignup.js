@@ -11,6 +11,11 @@ const ModalSignup = (props) => {
     const [password2, setPassword2] = useState("")
     const handleSave = async (email, password, password2) => {
         console.log(email, password, password2);
+        console.log(checkEmail(email));
+        if (checkEmail(email) == false) {
+            toast.error('Email không hợp lệ')
+            return
+        }
         let res = await axios.post('/auth/signup', { data: { email, password, password2 } })
         if (res && res.errCode === 0) {
             // handleChange()
@@ -27,6 +32,23 @@ const ModalSignup = (props) => {
             toast.error(res.message)
         }
     }
+
+    //Bắt email
+    const checkEmail = (email) => {
+        const trimmedEmail = email.trim().toLowerCase();
+
+        // Kiểm tra xem địa chỉ email kết thúc bằng '@gmail.com' hay không
+        if (trimmedEmail.endsWith("@gmail.com")) {
+            return true
+        } else {
+            return false
+        }
+    };
+    const handleInputChangeEmail = (event) => {
+        // Lọc và loại bỏ dấu phẩy và dấu cách khi nhập vào
+        const filteredValue = event.target.value.replace(/[, ]/g, "");
+        setEmail(filteredValue)
+    };
     return (
         <>
             <Modal show={show} onHide={handleClose}>
@@ -39,7 +61,7 @@ const ModalSignup = (props) => {
                             <label className="form-label">Nhập Email:</label>
                             <input type="text" className="form-control"
                                 value={email}
-                                onChange={(event) => setEmail(event.target.value)}
+                                onChange={(event) => handleInputChangeEmail(event)}
                             />
 
                         </div>

@@ -28,6 +28,10 @@ const Info = () => {
             toast.success(res.message)
         } else if (res && res.errCode === 1) {
             toast.error(res.message)
+        } else if (res && res.errCode === 2) {
+            toast.error(res.message)
+        } else if (res && res.errCode === 3) {
+            toast.error(res.message)
         }
     }
     const Lop = [
@@ -47,7 +51,25 @@ const Info = () => {
 
     }, [user])
 
+    const handleInputChangeMSSV = (event) => {
+        const value = event.target.value;
+        // Sử dụng biểu thức chính quy (regex) để kiểm tra giá trị nhập vào
+        if (/^[0-9a-zA-Z]{0,10}$/.test(value)) {
+            setMSSV(value);
+        }
+    };
+
+    const handleInputChangeSDT = (event) => {
+        const inputValue = event.target.value;
+        // Chỉ cho phép nhập số và giới hạn tối đa 10 ký tự
+        const numberOnly = inputValue.replace(/\D/g, '');
+        const maxLengthValue = numberOnly.slice(0, 10);
+        setSDT(maxLengthValue);
+    };
+
     const getInfo = async () => {
+        console.log(mssv);
+
         if (user && user[0] && user[0].id) {
             // let res = await axios.get(`/admin/get-user?id=${user[0].id}`)
             // console.log(res);
@@ -86,14 +108,14 @@ const Info = () => {
                     <label className="form-label">Nhập mã số sinh viên:</label>
                     <input type="text" className="form-control"
                         value={mssv}
-                        onChange={(event) => setMSSV(event.target.value)}
+                        onChange={(event) => handleInputChangeMSSV(event)}
                     />
                 </div>
                 <div >
                     <label className="form-label">Nhập số điện thoại:</label>
                     <input type="text" className="form-control"
                         value={sdt}
-                        onChange={(event) => setSDT(event.target.value)}
+                        onChange={(event) => handleInputChangeSDT(event)}
                     />
                 </div>
                 <div >

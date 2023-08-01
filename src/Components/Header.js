@@ -7,11 +7,19 @@ import { NavLink } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 const Header = (props) => {
-    const { logout, isLogin, user, role } = useContext(UserContext)
+    const { logout, isLogin, user, role, arrRole } = useContext(UserContext)
+    const [check, setCheck] = useState(false)
     console.log('User: ', user, role);
     const handleLogout = () => {
         logout()
     }
+    useEffect(() => {
+        const find = arrRole.find((item) => item.ma_quyen == 1)
+        if (find) {
+            setCheck(true)
+        }
+    }, [])
+
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -41,8 +49,8 @@ const Header = (props) => {
                     </Nav>
                     <Nav>
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
-                            {role != 1 && <NavDropdown.Item href="/info">Trang cá nhân</NavDropdown.Item>}
-                            {role != 1 && <NavDropdown.Item href="/change-password">Đổi mật khẩu</NavDropdown.Item>}
+                            {check === false && <NavDropdown.Item href="/info">Trang cá nhân</NavDropdown.Item>}
+                            {check === false && <NavDropdown.Item href="/change-password">Đổi mật khẩu</NavDropdown.Item>}
                             {isLogin === false ? <NavDropdown.Item href="/login">Đăng nhập</NavDropdown.Item> :
                                 <NavDropdown.Item href="/"
                                     onClick={handleLogout}>

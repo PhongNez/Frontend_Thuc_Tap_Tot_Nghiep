@@ -72,7 +72,7 @@ const HistoryOrderRoom = (props) => {
     }
 
     const handleChangOrderRoom = (item) => {
-        console.log(item);
+
         setOneRoom(item)
         // setIsShowModal(true)
         // navigate('/order-room')
@@ -88,7 +88,7 @@ const HistoryOrderRoom = (props) => {
 
     const handleHuyTraPhong = async (item) => {
         console.log(item);
-        let res = await axios.put(`/admin/xacnhan?id=${item.id}`)
+        let res = await axios.put(`/huy-tra?id=${item.id}`)
         console.log(res);
         handleChange()
     }
@@ -123,8 +123,8 @@ const HistoryOrderRoom = (props) => {
                             <tr key={index}>
                                 <td>{item.id}</td>
                                 <td>{item.ten_phong}</td>
-                                <td>{handleFormatDate(item.ngay_dk_thue)}</td>
-                                <td>{item.ngay_het_han}</td>
+                                <td>{item.ngay_dk_thue && handleFormatDate(item.ngay_dk_thue)}</td>
+                                <td>{item.ngay_het_han && handleFormatDate(item.ngay_het_han)}</td>
 
                                 <td>{item.so_thang}</td>
                                 <td>{item.trang_thai === 1 ? 'Chờ xác nhận' : (item.trang_thai === 2 ? 'Đã xác nhận' : 'Đã hoàn thành')}</td>

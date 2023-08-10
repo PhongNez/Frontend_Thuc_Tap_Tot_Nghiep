@@ -12,6 +12,7 @@ const ModalUpdatePrice = (props) => {
     const [gia, setGia] = useState(0)
     const [id_loai_phong, setIdLoaiPhong] = useState(null)
     const [listRoom, setListRoom] = useState([])
+    const [id_phong, setIdPhong] = useState([])
 
     let { LoaiPhong } = props
 
@@ -25,17 +26,30 @@ const ModalUpdatePrice = (props) => {
 
         setGia(value);
     };
+
+    const handleCloseEditPrice = () => {
+        handleClose()
+        setGia(0)
+        setIdLoaiPhong('')
+        setIdPhong('')
+    }
+
     const handleSave = async () => {
         console.log(gia, id_loai_phong);
+        console.log(id_phong, gia, id_loai_phong);
         let token = localStorage.getItem('token')
         console.log(token);
         setAuthToken(token)
-        let res = await axios.put('/chi-tiet-phong/update', { id: id_ctpt, gia, id_loai_phong })
+        // let res = await axios.put('/chi-tiet-phong/update', { id: id_ctpt, gia, id_loai_phong })
+        let res = await axios.post('/chi-tiet-phong/create', {
+            id_phong, gia, id_loai_phong
+        })
         console.log(res);
-        if (res && res.errCode === 0) {
+        if (res && res.errCode == 0) {
             handleChange()
             handleClose()
-        } else if (res && res.errCode === 1) {
+            toast.success(res.message)
+        } else if (res && res.errCode == 1) {
             toast.error(res.message)
         }
         else {
@@ -47,10 +61,11 @@ const ModalUpdatePrice = (props) => {
 
         setGia(listEditPrice.gia)
         setIdLoaiPhong(listEditPrice.id_loai_phong)
+        setIdPhong(listEditPrice.id)
     }, [listEditPrice])
     return (
         <>
-            <Modal show={show} onHide={handleClose} size="lg">
+            <Modal show={show} onHide={handleCloseEditPrice} size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
@@ -88,7 +103,7 @@ const ModalUpdatePrice = (props) => {
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={handleCloseEditPrice}>
                         Đóng
                     </Button>
                     {/* <Button variant="primary" onClick={() => handleSaveNewUser()}> */}

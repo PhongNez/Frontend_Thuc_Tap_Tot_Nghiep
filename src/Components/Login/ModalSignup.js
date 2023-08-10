@@ -83,11 +83,11 @@ const ModalSignup = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Đóng
                     </Button>
                     {/* <Button variant="primary" onClick={() => handleSaveNewUser()}> */}
                     <Button variant="primary" onClick={() => handleSave(email, password, password2)}>
-                        Save Changes
+                        Lưu thay đổi
                     </Button>
                 </Modal.Footer>
             </Modal>

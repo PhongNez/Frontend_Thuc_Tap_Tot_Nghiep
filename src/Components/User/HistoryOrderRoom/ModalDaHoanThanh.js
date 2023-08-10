@@ -17,6 +17,7 @@ const ModalDaHoanThanh = (props) => {
     const handleSave = async () => {
 
         let res = await axios.put(`/admin/dahoanthanh?id=${oneRoom.id}`)
+        await handleDeleteDonChuaDong(oneRoom)
         console.log(res);
         // console.log(res);
         if (res && res.errCode === 0) {
@@ -35,6 +36,9 @@ const ModalDaHoanThanh = (props) => {
         // }
     }
 
+    const handleDeleteDonChuaDong = async (item) => {
+        let res = await axios.delete(`/admin/xoa-don-chua-dong?id=${item.id_tai_khoan}`)
+    }
     useEffect(() => {
         getRoom()
     }, [user])

@@ -63,6 +63,10 @@ const DetailHistoryCollectMoney = (props) => {
         console.log(item.gia * item.so_thang);
     }
 
+    const handleFormatPrice = (price) => {
+        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+        return formattedPrice
+    }
     return (
         <><div className='text-center my-4'>
             <h4>Lịch sử đóng tiền của {dataUser && dataUser.ten}</h4>
@@ -72,11 +76,16 @@ const DetailHistoryCollectMoney = (props) => {
                 <thead>
                     <tr className="text-center">
                         <th>Id</th>
+                        <th>Hạn đóng</th>
                         <th>Tiền phải đóng</th>
+
+
+
                         <th>Tiền đã đóng</th>
+                        <th>Ngày đóng</th>
                         <th>Còn nợ</th>
-                        <th>Ngày thu</th>
-                        <th>Đã thu</th>
+
+                        <th>Trạng thái</th>
                         <th>Ghi chú</th>
                     </tr>
                 </thead>
@@ -85,11 +94,15 @@ const DetailHistoryCollectMoney = (props) => {
                         return (
                             <tr key={index} className="text-center">
                                 <td>{item.id}</td>
-                                <td>{item.tien_phai_dong}</td>
-                                <td>{item.tien_da_dong}</td>
-                                <td>{item.con_no}</td>
-                                <td>{handleFormatDate(item.ngay_thu)}</td>
-                                <td>{item.da_thu}</td>
+                                <td>{item.thang && handleFormatDate(item.thang)}</td>
+                                <td>{item.tien_phai_dong && handleFormatPrice(item.tien_phai_dong)}</td>
+
+
+                                <td>{item.da_thu && handleFormatPrice(item.da_thu)}</td>
+                                <td>{item.ngay_thu && handleFormatDate(item.ngay_thu)}</td>
+                                <td>{item.con_no && handleFormatPrice(item.con_no)}</td>
+
+                                <td>{item.trang_thai == 1 ? 'Chưa đóng' : 'Đã đóng'}</td>
                                 <td>{item.ghi_chu}</td>
                             </tr>
                         )

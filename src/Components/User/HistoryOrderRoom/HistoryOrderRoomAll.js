@@ -48,14 +48,14 @@ const HistoryOrderRoomAll = (props) => {
     }
     const handleXacNhan = async (item) => {
         console.log(item);
-        console.log('tien_phai_dong', item.gia * item.so_thang);
-        console.log('tien_da_dong', 0);
-        console.log('con_no', item.gia * item.so_thang);
+        console.log('tien_phai_dong', item.gia);//1 tháng
+        console.log('tien_da_dong', 0);// bỏ
+        console.log('con_no', item.gia);//
         console.log('da_thu', 0);
         console.log('id_nguoi_thue', 0);
 
         let res = await axios.put(`/admin/xacnhan?id=${item.id}`,
-            { tien_phai_dong: item.gia * item.so_thang, tien_da_dong: 0, con_no: item.gia * item.so_thang, da_thu: 0, id_nguoi_thue: item.id_tai_khoan })
+            { tien_phai_dong: item.gia, con_no: item.gia, da_thu: 0, id_nguoi_thue: item.id_tai_khoan })
         console.log(res);
         handleChange()
     }
@@ -70,7 +70,7 @@ const HistoryOrderRoomAll = (props) => {
     const handleDaHoanThanh = async (item) => {
         setIsShowModal(true)
         setOneRoom(item)
-
+        console.log(item);
     }
 
     const handleHuyTraPhong = async (item) => {
@@ -78,6 +78,11 @@ const HistoryOrderRoomAll = (props) => {
         let res = await axios.put(`/huy-tra?id=${item.id}`)
         console.log(res);
         handleChange()
+    }
+
+    const handleFormatPrice = (price) => {
+        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+        return formattedPrice
     }
 
     return (
@@ -111,7 +116,7 @@ const HistoryOrderRoomAll = (props) => {
                                 <td>{item.ten_tai_khoan}</td>
                                 <td>{item.email}</td>
                                 <td>{item.ten_phong}</td>
-                                <td>{item.gia}</td>
+                                <td>{item.gia && handleFormatPrice(item.gia)}</td>
                                 <td>{item.ngay_dk_thue && handleFormatDate(item.ngay_dk_thue)}</td>
                                 <td>{item.ngay_het_han && handleFormatDate(item.ngay_het_han)}</td>
 
@@ -128,8 +133,7 @@ const HistoryOrderRoomAll = (props) => {
                                     {item.trang_thai === 1 ? <button className='btn btn-primary' onClick={() => handleXacNhan(item)}>Xác nhận</button> :
                                         (item.trang_thai === 2 ? <button className='btn btn-primary mx-3' onClick={() => handleDaHoanThanh(item)}>Đã hoàn thành</button> :
                                             (item.trang_thai === 5 ? <button className='btn btn-primary mx-3' onClick={() => handleDaHoanThanh(item)}>Xác nhận</button> : ''))}
-                                    {item.trang_thai === 1 ? <button className='btn btn-danger mx-3' onClick={() => handleHuy(item)}>Hủy</button> :
-                                        (item.trang_thai === 5 ? <button className='btn btn-danger' onClick={() => handleHuyTraPhong(item)}>Hủy trả</button> : '')}
+                                    {item.trang_thai === 1 ? <button className='btn btn-danger mx-3' onClick={() => handleHuy(item)}>Hủy</button> : ''}
                                 </td>
                                 <td><a href={`/history-order-room/detail/${item.id}`}>Xem chi tiết</a></td>
                             </tr>

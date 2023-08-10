@@ -66,7 +66,7 @@ const TableCategory = (props) => {
     }
     return (
         <><div className='my-3 add-new'>
-            <span><b>Danh sách người dùng:</b></span>
+            <span><b>Danh sách danh mục:</b></span>
             <div>
 
                 <button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm danh mục</button></div>
@@ -108,14 +108,14 @@ const TableCategory = (props) => {
             <ModalEditCategory
                 show={isShowModalEdit}
                 handleClose={handleCloseEdit}
-                title={'Cập nhật phòng'}
+                title={'Cập nhật danh mục'}
                 listEdit={listEdit}
                 handleChange={handleChange}
             />
             <ModalDeleteCategory
                 show={isShowModalDelete}
                 handleClose={handleCloseDelete}
-                title={'Xóa phòng'}
+                title={'Xóa danh mục'}
                 handleSave={() => { }}
                 listDelete={listDelete}
                 handleChange={handleChange}

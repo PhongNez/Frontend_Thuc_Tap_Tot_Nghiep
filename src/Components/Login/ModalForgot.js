@@ -22,6 +22,7 @@ const ModalForgot = (props) => {
         else if (res && res.errCode === 2) {
             toast.error(res.message)
         }
+
     }
     const handleSave = async () => {
         let res = await axios.put('/auth/new-password-forgot', { code, email, mat_khau_moi: password })
@@ -37,6 +38,8 @@ const ModalForgot = (props) => {
             toast.error(res.message)
         }
         else if (res && res.errCode === 2) {
+            toast.error(res.message)
+        } else {
             toast.error(res.message)
         }
     }
@@ -77,11 +80,11 @@ const ModalForgot = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Đóng
                     </Button>
                     {/* <Button variant="primary" onClick={() => handleSaveNewUser()}> */}
                     <Button variant="primary" onClick={() => handleSave(email, password)}>
-                        Save Changes
+                        Lưu thay đổi
                     </Button>
                 </Modal.Footer>
             </Modal>

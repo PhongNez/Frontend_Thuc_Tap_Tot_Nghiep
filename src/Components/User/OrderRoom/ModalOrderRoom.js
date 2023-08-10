@@ -75,6 +75,9 @@ const ModalOrderRoom = (props) => {
         else if (res && res.errCode === 2) {
             toast.error(res.message)
         }
+        else if (res && res.errCode === 3) {
+            toast.error(res.message)
+        }
     }
     const Lop = [
         { id: 1, ten: 'Công nghệ thông tin' },

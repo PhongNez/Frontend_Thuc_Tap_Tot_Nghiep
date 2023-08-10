@@ -49,7 +49,7 @@ const ModalDeleteCategory = (props) => {
                 <Modal.Body>
                     <form>
                         <div className="mb-3">
-                            <label className="form-label">Bạn có muốn xóa phòng<h3> {listDelete.ten}</h3> </label>
+                            <label className="form-label">Bạn có muốn xóa danh mục<h3> {listDelete.ten}</h3> </label>
                             {/* <input type="text" className="form-control"
                                 value={ten}
                                 onChange={(event) => setTen(event.target.value)}

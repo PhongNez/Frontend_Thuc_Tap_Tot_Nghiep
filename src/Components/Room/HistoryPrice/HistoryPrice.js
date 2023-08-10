@@ -50,6 +50,11 @@ const HistoryPrice = (props) => {
         setListHistory(res.history)
     }
 
+    const handleFormatPrice = (price) => {
+        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+        return formattedPrice
+    }
+
     return (
         <><div className='text-center my-4'>
             <h4>Bảng giá phòng</h4>
@@ -76,7 +81,7 @@ const HistoryPrice = (props) => {
                             <tr key={index}>
                                 <td>{item.id}</td>
                                 <td>{item.ten}</td>
-                                <td>{item.gia}</td>
+                                <td>{item.gia && handleFormatPrice(item.gia)}</td>
                                 <td>{item.hieu_luc_tu && handleFormatDate(item.hieu_luc_tu)}</td>
                                 <td>{item.hieu_luc_den && handleFormatDate(item.hieu_luc_den)}</td>
                                 <td>{item.sl_giuong} giường</td>

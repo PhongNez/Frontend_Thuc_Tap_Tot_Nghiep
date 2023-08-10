@@ -107,8 +107,8 @@ const TableUser = (props) => {
                                 <td>{item.sdt}</td>
                                 <td>{item.ten_lop}</td>
                                 <td>{item.dia_chi}</td>
-                                <td>{item.trang_thai == 1 ? 'Hoạt động' : ''}</td>
-
+                                {/* <td>{item.trang_thai == 1 ? 'Hoạt động' : ''}</td> */}
+                                <td>Hoạt động</td>
                                 <td>
                                     <button className='btn btn-warning mx-3' onClick={() => handleEditUser(item)}>Cập nhật</button>
                                     {/* <button className='btn btn-danger' onClick={() => setIsShowModalDelete(true)}>Update</button> */}

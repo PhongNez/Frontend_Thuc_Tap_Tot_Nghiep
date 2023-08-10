@@ -29,7 +29,7 @@ const ModalChangeOrderRoom = (props) => {
             return
         }
         let res = await axios.put(`/chuyenphong`,
-            { id_phong: id_room, id_tai_khoan: user[0].id, sl_giuong: oneRoomModal.sl_giuong, phong_moi: oneRoomModal.ten, tien_phai_dong: oneRoomModal.gia * oneRoom.so_thang })
+            { id_phong: id_room, id_tai_khoan: user[0].id, sl_giuong: oneRoomModal.sl_giuong, phong_moi: oneRoomModal.ten, tien_phai_dong: oneRoomModal.gia })
         console.log(res);
         // // console.log(res);
         if (res && res.errCode === 0) {

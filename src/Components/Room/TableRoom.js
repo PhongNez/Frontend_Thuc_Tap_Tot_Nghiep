@@ -130,7 +130,7 @@ const TableRoom = () => {
             <span><b>Danh sách phòng:</b></span>
             <div>
 
-                <button className='btn btn-success mx-2' onClick={() => setIsShowModalCreatePrice(true)}>Thêm giá mới</button>
+                {/* <button className='btn btn-success mx-2' onClick={() => setIsShowModalCreatePrice(true)}>Thêm giá mới</button> */}
                 <button className='btn btn-success' onClick={() => setIsShowModalCreate(true)}>Thêm phòng</button></div>
         </div>
             <Table striped bordered hover size="sm" responsive   >
@@ -168,7 +168,7 @@ const TableRoom = () => {
                                 <td>
                                     <button className='btn btn-warning mx-3' onClick={() => handleEdit(item)}>Sửa</button>
                                     <button className='btn btn-danger' onClick={() => handleDelete(item)}>Xóa</button>
-                                    <button className='btn btn-warning mx-3' disabled={item.id_ctpt ? false : true} onClick={() => handleEditPrice(item)}>Cập nhật giá</button>
+                                    <button className='btn btn-warning mx-3' onClick={() => handleEditPrice(item)}>Cập nhật giá</button>
                                 </td>
                             </tr>
                         )

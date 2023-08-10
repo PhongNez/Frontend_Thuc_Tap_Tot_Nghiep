@@ -113,6 +113,12 @@ const ChonNam = () => {
         { id: 12, name: 'Tháng 12' },
     ];
     let total = 0
+
+    const handleFormatPrice = (price) => {
+        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+        return formattedPrice
+    }
+
     return (
         <div>
             <div className='text-center my-4'><h4>Thống kê doanh thu</h4></div>
@@ -146,7 +152,7 @@ const ChonNam = () => {
                                 <tr key={index} className="text-center">
 
                                     <td>{`${item.id}/${selectedYear}`}</td>
-                                    <td>{item.doanh_thu_thang ? item.doanh_thu_thang : 0}</td>
+                                    <td>{item.doanh_thu_thang ? handleFormatPrice(item.doanh_thu_thang) : 0}</td>
 
                                     {/* <td><button className='btn btn-danger mx-3' onClick={() => handleCollect(item)}>Thu tiền</button></td> */}
 
@@ -155,7 +161,7 @@ const ChonNam = () => {
                         })}
                     <tr className="text-center">
                         <td>Tổng cộng</td>
-                        <td>{total}</td>
+                        <td>{total && handleFormatPrice(total)}</td>
                     </tr>
                 </tbody>
             </Table>

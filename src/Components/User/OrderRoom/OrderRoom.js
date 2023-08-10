@@ -97,13 +97,17 @@ const OrderRoom = () => {
     const handleChangOrderRoom = (item) => {
         console.log(item.id);
         console.log('Change One Room: ', item);
-        setOneRoom(item)
-        setIsShowModalChange(true)
+        // setOneRoom(item)
+        // setIsShowModalChange(true)
+        navigate('/history-order-room')
     }
 
     console.log('Check change:', checkChange);
 
-
+    const handleFormatPrice = (price) => {
+        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+        return formattedPrice
+    }
     let Day = [
         { id: 1, ten: "J" },
         { id: 2, ten: "I" },
@@ -182,7 +186,7 @@ const OrderRoom = () => {
                                 <Card.Title>Phòng: {item.ten}</Card.Title>
                                 <Card.Img src={`${link}${item.anh}`} height={360} width={270}></Card.Img>
 
-                                <Card.Text className='myText'>Giá thuê: {item.gia} VNĐ/người</Card.Text>
+                                <Card.Text className='myText'>Giá thuê: {item.gia && handleFormatPrice(item.gia)} /người</Card.Text>
                                 <Card.Text className='myText'>Mô tả: {item.mo_ta}</Card.Text>
                                 <Card.Text className='myText'>Danh mục: {item.ten_danh_muc}</Card.Text>
                                 <Card.Text className='myText'>Dãy: {item.ten_day}</Card.Text>

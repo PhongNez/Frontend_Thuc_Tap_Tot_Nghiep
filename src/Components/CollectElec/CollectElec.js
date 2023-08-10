@@ -61,6 +61,12 @@ const CollectElec = (props) => {
         const formattedDate = moment(date).format('MM/YYYY');
         return formattedDate
     }
+
+    const handleFormatPrice = (price) => {
+        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+        return formattedPrice
+    }
+
     return (
         <><div className='my-3 add-new'>
             <span><b>Thu tiền điện:</b></span>
@@ -99,8 +105,8 @@ const CollectElec = (props) => {
                                 <td>{item.tieu_thu}</td>
                                 <td>{item.so_kw_dinh_muc}</td>
                                 <td>{item.so_kw_vuot_dinh_muc}</td>
-                                <td>{item.don_gia_1_kw}</td>
-                                <td>{item.thanh_tien}</td>
+                                <td>{item.don_gia_1_kw && handleFormatPrice(item.don_gia_1_kw)}</td>
+                                <td>{item.thanh_tien && handleFormatPrice(item.thanh_tien)}</td>
                                 <td>{item.ngay && handleFormatDate(item.ngay)}</td>
                                 <td>{item.trang_thai === 1 ? 'Chưa đóng' :
                                     'Đã đóng'}</td>

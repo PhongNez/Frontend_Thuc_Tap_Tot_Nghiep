@@ -1,7 +1,7 @@
 import moment from 'moment'
 
 const handleFormatDate = (date) => {
-    const formattedDate = moment(date).format('DD/MM/YYYY HH:mm:ss');
+    const formattedDate = moment(date).format('DD/MM/YYYY');
     return formattedDate
 }
 

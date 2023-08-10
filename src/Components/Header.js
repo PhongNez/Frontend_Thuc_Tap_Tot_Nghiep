@@ -50,7 +50,7 @@ const Header = (props) => {
                     <Nav>
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
                             {check === false && <NavDropdown.Item href="/info">Trang cá nhân</NavDropdown.Item>}
-                            {check === false && <NavDropdown.Item href="/change-password">Đổi mật khẩu</NavDropdown.Item>}
+                            <NavDropdown.Item href="/change-password">Đổi mật khẩu</NavDropdown.Item>
                             {isLogin === false ? <NavDropdown.Item href="/login">Đăng nhập</NavDropdown.Item> :
                                 <NavDropdown.Item href="/"
                                     onClick={handleLogout}>

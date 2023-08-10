@@ -136,7 +136,8 @@ const HistoryOrderRoom = (props) => {
                                     {/* <button className='btn btn-danger' onClick={() => handleAddRole(item)}>Cấp quyền</button> */}
                                     {item.trang_thai === 1 ? <button className='btn btn-danger mx-3' onClick={() => handleXoa(item)}>Xóa</button> :
                                         (item.trang_thai === 2 ? <button className='btn btn-warning mx-3' onClick={() => handleChangOrderRoom(item)}>Chuyển phòng</button> :
-                                            (item.trang_thai === 5 ? <button className='btn btn-warning mx-3' onClick={() => handleHuyTraPhong(item)}>Hủy trả</button> : ''))}
+                                            // (item.trang_thai === 5 ? <button className='btn btn-warning mx-3' onClick={() => handleHuyTraPhong(item)}>Hủy trả</button> :
+                                            '')}
                                     {item.trang_thai === 2 ? <button className='btn btn-danger' onClick={() => handleReturnRoom(item)}>Trả phòng</button> : ''}
                                 </td>
                                 <td>

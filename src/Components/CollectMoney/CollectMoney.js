@@ -51,6 +51,11 @@ const CollectMoney = (props) => {
         console.log(item.gia * item.so_thang);
     }
 
+    const handleFormatPrice = (price) => {
+        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+        return formattedPrice
+    }
+
     return (
         <><div className='text-center my-4'>
             <h4>Bảng thu tiền khách đã thuê phòng</h4>
@@ -82,7 +87,7 @@ const CollectMoney = (props) => {
                                 <td>{item.ten_tai_khoan}</td>
                                 <td>{item.email}</td>
                                 <td>{item.ten_phong}</td>
-                                <td>{item.gia}</td>
+                                <td>{item.gia && handleFormatPrice(item.gia)}</td>
                                 <td>{handleFormatDate(item.ngay_dk_thue)}</td>
                                 <td>{item.ngay_het_han && handleFormatDate(item.ngay_het_han)}</td>
 

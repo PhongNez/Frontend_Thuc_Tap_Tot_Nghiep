@@ -9,35 +9,40 @@ const ModalCollectElec = (props) => {
     const [id_room, setIDRoom] = useState("")
     const [so_luong, setSoLuong] = useState("")
     const [chi_so_cu, setChiSoCu] = useState("")
-    const [chi_so_moi, setChiSoMoi] = useState("")
-    const [don_gia, setDonGia] = useState('')
+    const [chi_so_moi, setChiSoMoi] = useState(0)
+    const [don_gia, setDonGia] = useState(0)
     const [thang, setThang] = useState(0)
     const [ghiChu, setGhiChu] = useState('')
     const [dataThuTien, setDataThuTien] = useState('')
     const [listRoom, setListRoom] = useState([])
     const [listPerson, setListPerson] = useState([])
+    const [oneElec, setOneElec] = useState('')
 
     useEffect(() => {
 
         getRoom()
 
     }, [])
+
+    useEffect(() => {
+        getElec(id_room)
+
+    }, [id_room])
+
+    const getElec = async (item) => {
+        let res = await axios.get(`/check-collect-elec?id=${id_room}`)
+        console.log(res);
+        setOneElec(res.history)
+        // setListPerson(res.listCountPerson)
+    }
+
     const getRoom = async () => {
         let res = await axios.get('/order-room/get')
         console.log(res);
         setListRoom(res.dataRoom)
         setListPerson(res.listCountPerson)
     }
-    const handleChiSoCu = (event) => {
-        const value = event.target.value;
 
-        // Kiểm tra nếu giá trị không phải là số thì không cập nhật giá trị
-        if (isNaN(value) || value.includes('.') || value.includes(' ')) {
-            return;
-        }
-
-        setChiSoCu(value);
-    };
     const handleChiSoMoi = (event) => {
         const value = event.target.value;
 
@@ -86,15 +91,16 @@ const ModalCollectElec = (props) => {
     }
 
     const handleSave = async () => {
+
         console.log(id_room, so_luong, chi_so_cu, chi_so_moi, don_gia, thang);
 
         if (listRoom && listRoom.length > 0) {
             const foundService = listRoom.find((item) =>
                 item.id == id_room
             );
+            setChiSoCu(oneElec && oneElec.chi_so_moi ? oneElec.chi_so_moi : 0)
 
-
-            console.log(foundService);
+            console.log('foundService: ', foundService);
             console.log('Phong: ', countListPerson(foundService));
             let res = await axios.post('/admin/collect-elec',
                 { id_phong: id_room, so_luong, chi_so_cu, chi_so_moi, don_gia, thang, so_luong: countListPerson(foundService) })
@@ -104,6 +110,12 @@ const ModalCollectElec = (props) => {
 
                 handleClose()
                 handleChange()
+                setIDRoom("")
+                // const [so_luong, setSoLuong] = useState("")
+                setChiSoCu("")
+                setChiSoMoi(0)
+                setDonGia(0)
+                setThang(0)
                 toast.success(res.message)
             }
             else if (res && res.errCode === 1) {
@@ -157,11 +169,8 @@ const ModalCollectElec = (props) => {
 
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Nhập chỉ số củ:</label>
-                            <input type="text" className="form-control"
-                                value={chi_so_cu}
-                                onChange={(event) => handleChiSoCu(event)}
-                            />
+                            <label className="form-label">Chỉ số củ: {oneElec && oneElec.chi_so_moi ? oneElec.chi_so_moi : 0}</label>
+
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Nhập chỉ số mới:</label>
@@ -189,11 +198,11 @@ const ModalCollectElec = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Đóng
                     </Button>
                     {/* <Button variant="primary" onClick={() => handleSaveNewUser()}> */}
                     <Button variant="primary" onClick={() => handleSave()}>
-                        Save Changes
+                        Lưu thay đổi
                     </Button>
                 </Modal.Footer>
             </Modal>

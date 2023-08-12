@@ -103,7 +103,7 @@ const ModalCollectMoney = (props) => {
                             <label className="form-label">Tiền phải đóng: {oneMonth && oneMonth.tien_phai_dong && handleFormatPrice(oneMonth.tien_phai_dong)}</label>
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Tiền đã đóng: {oneMonth && (oneMonth.tien_phai_dong - oneMonth.con_no) && handleFormatPrice(oneMonth.tien_phai_dong - oneMonth.con_no)}</label>
+                            <label className="form-label">Tiền đã đóng: {oneMonth && (oneMonth.tien_phai_dong - oneMonth.con_no) ? handleFormatPrice(oneMonth.tien_phai_dong - oneMonth.con_no) : 0}</label>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Tiền còn nợ: {oneMonth && oneMonth.con_no && handleFormatPrice(oneMonth.con_no)}</label>

@@ -86,10 +86,11 @@ const HistoryOrderRoomAll = (props) => {
     }
 
     return (
-        <><div className='text-center my-4'>
-            <h4>Đơn khách hàng đã thuê</h4>
+        <>
+            <div className=' my-4'>
+                <p className='title-user'>Đơn khách hàng đã thuê</p>
 
-        </div>
+            </div>
             <Table striped bordered hover responsive>
                 <thead>
                     <tr className="text-center">

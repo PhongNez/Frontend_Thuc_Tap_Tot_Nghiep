@@ -57,7 +57,7 @@ const HistoryPrice = (props) => {
 
     return (
         <><div className='text-center my-4'>
-            <h4>Bảng giá phòng</h4>
+            <h4 className='title-user'>Bảng giá phòng</h4>
             {/* <div>
 
                 <button className='btn btn-success'>Thêm thông tin</button></div> */}

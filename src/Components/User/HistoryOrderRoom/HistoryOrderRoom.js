@@ -98,7 +98,7 @@ const HistoryOrderRoom = (props) => {
     }
     return (
         <><div className='text-center my-4'>
-            <h4>Đơn bạn đã thuê</h4>
+            <h4 className=' title-user'>Đơn bạn đã thuê</h4>
             {/* <div>
 
                 <button className='btn btn-success'>Thêm thông tin</button></div> */}
@@ -113,8 +113,8 @@ const HistoryOrderRoom = (props) => {
 
                         <th>Số tháng</th>
                         <th>Trạng thái</th>
-
                         <th>Hành động</th>
+                        <th>Chi tiết</th>
                     </tr>
                 </thead>
                 <tbody>

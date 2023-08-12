@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import axios from '../../services/Customize-axios'
 import { useEffect } from 'react';
-
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS } from "chart.js/auto";
 const ChonNam = () => {
     const [selectedYear, setSelectedYear] = useState('');
 
@@ -121,7 +122,7 @@ const ChonNam = () => {
 
     return (
         <div>
-            <div className='text-center my-4'><h4>Thống kê doanh thu</h4></div>
+            <div className='text-center my-4'><h4 className='title-user'>Thống kê doanh thu</h4></div>
 
             <select value={selectedYear} onChange={handleChangeYear}>
                 <option value="">-- Chọn năm --</option>
@@ -131,7 +132,9 @@ const ChonNam = () => {
                     </option>
                 ))}
             </select>
-            <p>Bạn đã chọn năm: {selectedYear}</p>
+            <p>Bạn đã chọn năm:
+                &nbsp; {selectedYear}
+            </p>
             <Table striped bordered hover responsive>
                 <thead>
                     <tr className="text-center">
@@ -165,6 +168,24 @@ const ChonNam = () => {
                     </tr>
                 </tbody>
             </Table>
+            <Line data={{
+                labels: listDoanhThu && months.map((data) => data.name),
+                datasets: [
+                    {
+                        label: "Lợi nhuận",
+                        data: listDoanhThu && listDoanhThu.map((data) => data.doanh_thu_thang ? data.doanh_thu_thang : 0),
+                        backgroundColor: [
+                            "rgba(75,192,192,1)",
+                            "#ecf0f1",
+                            "#50AF95",
+                            "#f3ba2f",
+                            "#2a71d0",
+                        ],
+                        borderColor: "black",
+                        borderWidth: 2,
+                    },
+                ],
+            }} />;
         </div>
     );
 };

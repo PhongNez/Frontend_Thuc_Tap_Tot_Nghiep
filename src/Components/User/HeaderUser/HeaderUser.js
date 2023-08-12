@@ -6,6 +6,8 @@ import logoCoffee from '../../assets/images/logo-coffee.jpg'
 import { NavLink } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../../context/UserContext';
+import "./Header.scss"
+
 const HeaderUser = (props) => {
     const { logout, isLogin, user, role } = useContext(UserContext)
     console.log('User: ', user, role);
@@ -50,6 +52,7 @@ const HeaderUser = (props) => {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
+
     )
 }
 

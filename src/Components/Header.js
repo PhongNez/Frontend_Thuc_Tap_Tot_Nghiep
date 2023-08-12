@@ -48,8 +48,8 @@ const Header = (props) => {
                         <NavLink to="/doanh-thu" className='nav-link'>Doanh thu</NavLink>
                     </Nav>
                     <Nav>
-                        <NavDropdown title="Setting" id="basic-nav-dropdown">
-                            {check === false && <NavDropdown.Item href="/info">Trang cá nhân</NavDropdown.Item>}
+                        <NavDropdown title="Setting" id="basic-nav-dropdown" style={{ marginRight: "-220px" }}>
+                            <NavDropdown.Item href="/info">Trang cá nhân</NavDropdown.Item>
                             <NavDropdown.Item href="/change-password">Đổi mật khẩu</NavDropdown.Item>
                             {isLogin === false ? <NavDropdown.Item href="/login">Đăng nhập</NavDropdown.Item> :
                                 <NavDropdown.Item href="/"

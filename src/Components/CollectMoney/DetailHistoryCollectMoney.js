@@ -69,7 +69,7 @@ const DetailHistoryCollectMoney = (props) => {
     }
     return (
         <><div className='text-center my-4'>
-            <h4>Lịch sử đóng tiền của {dataUser && dataUser.ten}</h4>
+            <h4 className='title-user'>Lịch sử đóng tiền của {dataUser && dataUser.ten}</h4>
 
         </div>
             <Table striped bordered hover responsive>

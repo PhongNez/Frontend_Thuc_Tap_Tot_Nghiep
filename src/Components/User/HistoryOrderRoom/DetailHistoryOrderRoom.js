@@ -43,7 +43,7 @@ const DetailHistoryOrderRoom = (props) => {
 
     return (
         <><div className='text-center my-4'>
-            <h4>Lịch sử  thay đổi của đơn số {id}</h4>
+            <h4 className='title-user'>Lịch sử  thay đổi của đơn số {id}</h4>
         </div>
             <Table striped bordered hover>
                 <thead>

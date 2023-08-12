@@ -79,8 +79,9 @@ const OrderRoom = () => {
     }
 
     const cardStyle = {
-        width: '400px', // Đặt kích thước chiều rộng của Card
+        width: 'auto', // Đặt kích thước chiều rộng của Card
         // Đặt kích thước chiều cao của Card
+        height: "auto",
     };
     console.log('list person: ', listPerson);
 
@@ -139,7 +140,7 @@ const OrderRoom = () => {
 
     return (
         <Container>
-            <h4 className='text-center my-4'>Danh sách phòng thuê</h4>
+            <h4 className='text-center my-4 title-user'>Danh sách phòng thuê</h4>
 
             <Nav className='flex-row-reverse text-color'>
                 <NavDropdown title="Dãy" id="basic-nav-dropdown" className='text-success'>
@@ -179,7 +180,7 @@ const OrderRoom = () => {
             <div className='d-flex flex-row-reverse my-3'><button className='btn btn-primary ' onClick={() => setListRoom(listRoomMain)}>Bỏ lọc  </button></div>
 
             <Row>
-                {listRoom && listRoom.map((item) => (
+                {listRoom && listRoom.map((item) => item.sl_giuong != countListPerson(item) && (
                     <Col key={item.id} md={4} className="mb-4">
                         <Card style={cardStyle}>
                             <Card.Body>

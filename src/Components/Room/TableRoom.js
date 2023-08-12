@@ -127,7 +127,7 @@ const TableRoom = () => {
 
     return (
         <><div className='my-3 add-new'>
-            <span><b>Danh sách phòng:</b></span>
+            <span><b style={{ fontSize: "20px", textTransform: "uppercase" }}>Danh sách phòng</b></span>
             <div>
 
                 {/* <button className='btn btn-success mx-2' onClick={() => setIsShowModalCreatePrice(true)}>Thêm giá mới</button> */}

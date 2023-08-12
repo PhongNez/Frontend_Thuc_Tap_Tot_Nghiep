@@ -76,10 +76,9 @@ const TableUser = (props) => {
         }
     }, [])
     return (
-        <><div className='my-3 add-new'>
-            <span><b>Danh sách người dùng:</b></span>
+        <>
+            <p className='title-user'>Danh sách người dùng</p>
             {/* <div><button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm thông tin</button></div> */}
-        </div>
             <Table striped bordered hover responsive>
                 <thead>
                     <tr className="text-center">

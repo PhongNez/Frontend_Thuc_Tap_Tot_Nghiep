@@ -69,7 +69,7 @@ const CollectElec = (props) => {
 
     return (
         <><div className='my-3 add-new'>
-            <span><b>Thu tiền điện:</b></span>
+            <span><b style={{ fontSize: "20px", textTransform: "uppercase" }}>Thu tiền điện</b></span>
             <div>
 
                 <button className='btn btn-success' onClick={() => setIsShowModal(true)}>Thêm HĐ điện</button></div>

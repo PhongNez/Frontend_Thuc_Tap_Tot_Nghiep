@@ -58,7 +58,7 @@ const CollectMoney = (props) => {
 
     return (
         <><div className='text-center my-4'>
-            <h4>Bảng thu tiền khách đã thuê phòng</h4>
+            <h4 className='title-user'>Bảng thu tiền khách đã thuê phòng</h4>
 
         </div>
             <Table striped bordered hover responsive>

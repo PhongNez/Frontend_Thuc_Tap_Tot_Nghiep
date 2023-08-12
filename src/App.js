@@ -26,11 +26,11 @@ function App() {
   return (
     <>
       <div className='app-container'>
-        <Container>
+        <div>
           {console.log('Role: ', role)}
           {role > 0 ? <Header /> : <HeaderUser />}
           <AppRoutes />
-        </Container>
+        </div>
       </div>
       <ToastContainer
         position="top-right"

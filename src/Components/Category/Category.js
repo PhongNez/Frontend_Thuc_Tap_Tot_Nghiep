@@ -65,12 +65,13 @@ const TableCategory = (props) => {
         // getAllUser(event.selected + 1)
     }
     return (
-        <><div className='my-3 add-new'>
-            <span><b>Danh sách danh mục:</b></span>
-            <div>
-
-                <button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm danh mục</button></div>
-        </div>
+        <>
+            <div className='my-3 add-new'>
+                <span><b style={{ fontSize: "20px", textTransform: "uppercase" }}>Danh sách danh mục</b></span>
+                <div>
+                    <button className='btn btn-success' onClick={() => setIsShowModalAdd(true)}>Thêm danh mục</button>
+                </div>
+            </div>
             <Table striped bordered hover responsive>
                 <thead>
                     <tr className="text-center">

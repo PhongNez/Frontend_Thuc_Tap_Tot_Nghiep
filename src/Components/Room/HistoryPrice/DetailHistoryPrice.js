@@ -48,7 +48,7 @@ const DetailHistoryPrice = (props) => {
 
     return (
         <><div className='text-center my-4'>
-            <h4>Lịch sử giá của phòng {listHistory && listHistory[0] && listHistory[0].ten_phong}</h4>
+            <h4 className='title-user'>Lịch sử giá của phòng {listHistory && listHistory[0] && listHistory[0].ten_phong}</h4>
         </div>
             <Table striped bordered hover>
                 <thead>

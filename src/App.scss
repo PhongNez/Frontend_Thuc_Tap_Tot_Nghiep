@@ -13,7 +13,11 @@
   }
 
   .app-container {
-    .my-3.add-new {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+
+    .add-new {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -129,4 +133,16 @@
         }
       }
     }
+  }
+
+  .title-user {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .float-right {
+    float: right;
   }
